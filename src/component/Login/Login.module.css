@@ -1,0 +1,14 @@
+.auth {
+
+    margin-top: 250px;
+}
+
+.loginForm{
+
+    width: 500px;
+    margin: 0 auto;
+
+}
+.formItem:not(:last-child){
+    margin-bottom: 15px;
+}
