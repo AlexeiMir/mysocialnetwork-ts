@@ -10,9 +10,7 @@ import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto}) => {
 
-    if (!profile) {
-        return <Preloader/>
-    }
+   
 
     const onMainPhotoSelect = (e) => {
         if (e.target.files.length){
@@ -50,10 +48,10 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
                                 <Grid container justify="center">
                                     <Grid item xs>
                                         <Grid container justify="flex-end" spacing={3}>
-                                            {isOwner&&<input id="file" type={"file"} className={s.fileBtn}
+                                            {isOwner&&<input id="file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}
                                             />}
                                             <label htmlFor="file"> <BackupOutlinedIcon fontSize={"large"}
-                                                className={s.uploadOutlined} onChange={onMainPhotoSelect}/></label>
+                                                className={s.uploadOutlined} /></label>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs>

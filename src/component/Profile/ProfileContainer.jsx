@@ -10,24 +10,30 @@ const ProfileContainer = (props) => {
     const profile = useSelector(state => state.profilePage.profile)
     const autorizaionedUserId = useSelector(state => state.authPage.userId)
     const status = useSelector(state => state.profilePage.status)
+    const posts = useSelector(state => state.profilePage.posts)
     const dispatch = useDispatch();
 
+    let userId = match.params.userId
+    if (!userId) {
+        userId = autorizaionedUserId
+        if (!userId){
+            userId = history.push("/login")
+        }
+ }
 
-        let userId = match.params.userId
-       if (!userId) {
-           userId = autorizaionedUserId
-           if (!userId){
-               userId = history.push("/login")
-           }
+    const refreshProfile = () => {
+      
+     dispatch(getProfile(userId))
+     dispatch(getStatus(userId))
     }
 
-    useEffect(() => {
-        dispatch(getProfile(userId))
-    },[userId])
+      
 
     useEffect(() => {
-        dispatch(getStatus(userId))
+        refreshProfile()
     },[userId])
+
+   
 
     const handleUpdateStatus = (status) => {
            dispatch(updateStatus(status))
@@ -42,7 +48,7 @@ const ProfileContainer = (props) => {
 
     return <>
         <Profile profile={profile} handleUpdateStatus={handleUpdateStatus}
-                 status={status} isOwner={!match.params.userId} handleUploadPhoto={handleUploadPhoto}/>
+                 status={status} isOwner={!match.params.userId} handleUploadPhoto={handleUploadPhoto} posts={posts}/>
         </>
 }
 
