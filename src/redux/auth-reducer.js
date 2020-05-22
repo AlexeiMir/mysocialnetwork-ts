@@ -7,7 +7,7 @@ const initialState = {
     isAuth:false,
     email:null,
     password:null,
-    id:null,
+    userId:null,
     login:null,
     captchaUrl:null
 
@@ -26,7 +26,7 @@ const authReducer = (state=initialState,action) => {
     }
 }
 
-const setAuthUserData = (id,email,login,isAuth) => ({type:SET_AUTH_USER_DATA,payload:{id,email,login,isAuth}})
+const setAuthUserData = (userId,email,login,isAuth) => ({type:SET_AUTH_USER_DATA,payload:{userId,email,login,isAuth}})
 
 export const getAuthUserData = () => async(dispatch) => {
     const response = await authAPI.me()

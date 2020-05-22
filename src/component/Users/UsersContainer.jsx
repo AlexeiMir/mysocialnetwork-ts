@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {follow, requestUsers, unfollow} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import {startChatting} from "../../redux/dialogs-reducer";
+import {withRouter} from "react-router-dom";
 
 
 const UsersContainer = () => {

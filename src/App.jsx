@@ -4,7 +4,6 @@ import './App.css';
 import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import UsersContainer from "./component/Users/UsersContainer";
 import Navbar from "./component/Navbar/Navbar";
-import Header from "./component/Header/Header";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "./redux/redux-store";
 import DialogsContainer from "./component/Dialogs/DialogsContainer";
@@ -12,11 +11,12 @@ import Login from "./component/Login/LoginContainer";
 import HeaderContainer from "./component/Header/HeaderContainer";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./component/common/Preloader";
+import ProfileContainer from "./component/Profile/ProfileContainer";
 
 function App() {
+
     const initilized = useSelector(state => state.app.initilized)
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(initializeApp())
     }, [dispatch])
@@ -31,6 +31,7 @@ function App() {
         <div className="app-wrapper-content">
             <Route path={"/users"} render={() => <UsersContainer/>}/>
             <Route path={"/dialogs"} render={() => <DialogsContainer/>}/>
+            <Route path={"/profile/:userId?"} render={() => <ProfileContainer />}/>
             <Route path={"/login"} render={() => <Login/>}/>
             <Route exact path={"/"} render={() => <Redirect to="/users"/>}/>
         </div>
@@ -38,14 +39,15 @@ function App() {
     </div>
 }
 
-const SocialApp = withRouter(App)
+const AppSocial = withRouter(App)
 
 const AppContainer = () => {
+
 
     return (
         <BrowserRouter>
             <Provider store={store}>
-                <SocialApp/>
+                <AppSocial/>
             </Provider>
         </BrowserRouter>
     )

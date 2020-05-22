@@ -28,6 +28,7 @@ const User = ({user,handleUnfollow,handleFollow,followingInProgress,handleStartC
     return <>
         <Card className={classes.root}>
 
+            <NavLink to={'/profile/'+user.id} className={s.card}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
@@ -44,6 +45,7 @@ const User = ({user,handleUnfollow,handleFollow,followingInProgress,handleStartC
                         </Typography>
                     </CardContent>
                 </CardActionArea>
+        </NavLink>
 
             <CardActions>
                 {user.followed

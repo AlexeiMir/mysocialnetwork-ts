@@ -6,3 +6,7 @@
 .btnMessage{
     text-decoration: none;
 }
+.card{
+    text-decoration: none;
+    color: unset;
+}

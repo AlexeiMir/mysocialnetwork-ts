@@ -37,6 +37,12 @@ const Navbar = () => {
                         </ListItemIcon>
                         <ListItemText primary="Dialogs"/>
                     </ListItem>
+                    <ListItem button component={NavLink} exact to="/profile">
+                        <ListItemIcon>
+                            <DraftsIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Profile"/>
+                    </ListItem>
                 </List>
             </div>
         </div>
