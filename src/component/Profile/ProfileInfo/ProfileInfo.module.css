@@ -1,0 +1,126 @@
+.coverPhoto img {
+    display: block;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    height: 400px;
+}
+
+
+.mainPhoto > img {
+    border-radius: 100%;
+    border: 6px solid #fff;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    background-color: #FDFBEE;
+    display: inline-block;
+    margin-top: -75px;
+}
+
+.fileBtn {
+    width: 0.9px;
+    height: 0.9px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.fileBtn + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #1890ff;
+    display: inline-block;
+    border-radius: 100%;
+
+
+
+}
+.fileBtn:focus + label,
+.fileBtn + label:hover {
+    background-color: #1890ff;
+}
+
+.fileBtn + label {
+    cursor: pointer; /* "hand" cursor */
+}
+
+.fileBtn:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.uploadOutlined{
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 60px;
+    background-color: #1890ff;
+    display: inline-block;
+    border-radius: 100%;
+    border: 2px solid #fff;
+
+}
+
+.btnSave {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 5px 0;
+    text-transform: uppercase;
+    background: #088dcd;
+    border-radius: 4px;
+    width:30%;
+    color:white;
+    cursor: pointer;
+}
+
+
+
+.contacts{
+    padding-left:20px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    padding-right:20px;
+
+}
+
+.row{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    margin-bottom:10px;
+}
+
+.row TextArea{
+    margin-bottom: 10px;
+}
+
+.contacts Input{
+    width:120px;
+}
+
+.rowContacts{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.profileData{
+    margin-top: 30px;
+}
+
+.profileDescription{
+    display: grid;
+
+    grid-template-columns: 6fr 6fr;
+    grid-template-areas:
+            "f s";
+}
+
+.firstDescription{
+    grid-area: f;
+}
+
+.secondDescription{
+    grid-area: s;
+}
