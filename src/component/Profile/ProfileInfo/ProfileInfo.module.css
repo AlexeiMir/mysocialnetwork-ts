@@ -81,8 +81,17 @@
 .contacts{
     padding-left:20px;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 40% 60%;
     padding-right:20px;
+
+}
+
+.contactsField{
+    margin-right: 10px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+ 
 
 }
 
@@ -92,18 +101,8 @@
     margin-bottom:10px;
 }
 
-.row TextArea{
-    margin-bottom: 10px;
-}
 
-.contacts Input{
-    width:120px;
-}
 
-.rowContacts{
-    display: grid;
-    grid-template-columns: 80% 20%;
-}
 
 .profileData{
     margin-top: 30px;

@@ -11,7 +11,7 @@ const DialogsContainer = () => {
 
     useEffect(() => {
         dispatch(getAllDialogs())
-    },[dispatch,dialogs])
+    },[dialogs])
 
     return <>
 

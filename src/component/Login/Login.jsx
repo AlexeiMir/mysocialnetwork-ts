@@ -9,7 +9,7 @@ import {renderCheckbox, renderTextField} from "../../FormsControls/FormsControls
 
 
 const LoginPage = (props) => {
-    const { handleSubmit, pristine, reset, submitting, classes } = props
+    const { handleSubmit, pristine, reset, submitting, classes,captchaUrl } = props
 
 
 
@@ -34,6 +34,10 @@ const LoginPage = (props) => {
                         variant="outlined" size="small" color="primary" component='button'>
                     Cancel
                 </Button>
+                <div>
+                    {captchaUrl&&<img src={captchaUrl}/>}
+                    {captchaUrl&&<Field name="captchaUrl" component={renderTextField} multiline={false} rows={1}  />}
+                </div>
             </div>
             </form>
         </div>

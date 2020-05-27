@@ -8,15 +8,16 @@ import {Redirect} from "react-router-dom";
 const Login = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.authPage.isAuth)
+    const captchaUrl = useSelector(state => state.authPage.captchaUrl)
 
     if (isAuth) { return <Redirect to={"/profile"} /> }
 
     const onSubmit = (formData) => {
 
-        dispatch(login(formData.email, formData.password, formData.rememberMe))
+        dispatch(login(formData.email, formData.password, formData.rememberMe,formData.captchaUrl))
     }
 
-    return <LoginReduxForm onSubmit={onSubmit}/>
+    return <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
 }
 
 export default Login;

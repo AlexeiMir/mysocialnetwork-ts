@@ -20,8 +20,9 @@ const dialogsReducer = (state=initialState,action) => {
                 ...state,isFetching:action.isFetching
             }
         case SET_DIALOGS:
+        
             return {
-                ...state,dialogs:payload
+                ...state,dialogs:{...state.dialogs,payload}
             }
 
         default:
@@ -36,7 +37,8 @@ const setDialogs = (payload) => ({type:SET_DIALOGS,payload})
 
 export const getAllDialogs = () => async(dispatch) => {
     dispatch(toggleIsFetchingDialogs(true))
-    const response =  dialogsAPI.getAllDialogs()
+    const response = await dialogsAPI.getAllDialogs()
+    debugger
     dispatch(setDialogs(response.data))
     dispatch(toggleIsFetchingDialogs(false))
 

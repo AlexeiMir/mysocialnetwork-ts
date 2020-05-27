@@ -58,27 +58,28 @@ const EditePopupProfileInfo = ({profile,handleSubmit,open,setOpen,error}) => {
                             <div className={s.row}>
                                 <div><b>Contacts</b>:</div>
                             </div>
-                            <div className={s.row}>
+                            
                                 <div className={s.contacts}>{Object.keys(profile.contacts).map(key => {
                                     return <>
-                                        <div key={key} className={s.contacts}>
+                                        <div key={key.id} className={s.contactsField}>
                                         <b>{key}:</b>
-                                            <Field name={"contacts."+key} component={renderTextField} label={key}
+                                            <Field key={key.id} name={"contacts."+key} component={renderTextField} label={key}
                                                    multiline={false} rows={1} placeholder={key}  /></div></>
                                 })}</div>
                             </div>
-                        </div>
-                    </form>
-
-                </DialogContent>
-                <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                            Cancel
+                        
+                            <DialogActions>
+                        <Button onClick={handleClose} color="primary" component='button'>
+                            Close
                         </Button>
-                    <Button type='submit' color="primary">
+                    <Button type="submit" color="primary" onClick={handleClose} component='button'>
                         Save
                     </Button>
                 </DialogActions>
+                    </form>
+
+                </DialogContent>
+               
             </Dialog>
         </div>
     );

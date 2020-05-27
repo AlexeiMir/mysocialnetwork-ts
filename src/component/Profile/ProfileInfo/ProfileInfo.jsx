@@ -22,7 +22,7 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
     }
 
     const submit = (profileData) => {
-        debugger
+    
         handleUpdateProfile(profileData)
     }
 
@@ -57,7 +57,7 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
                                     <Grid item xs>
                                         <Grid container justify="flex-end" spacing={3}>
                                             {isOwner&&
-                                            <label htmlFor="file">
+                                            <label htmlFor="file" >
                                                 <IconButton aria-label="settings" >
                                                     <input id="file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}
                                                     />

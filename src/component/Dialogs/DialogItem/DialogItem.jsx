@@ -6,6 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
 import ListItemText from "@material-ui/core/ListItemText";
 import {NavLink} from "react-router-dom";
+import userPhoto from "../../../assets/images/man.png"
 
 
 
@@ -17,12 +18,10 @@ const DialogItem = ({dialogs}) => {
                 <ListItem key={dialog.id}>
                     <NavLink to={"dialogs/"+ dialog.id}>
                     <ListItemAvatar>
-                        <Avatar>
-                            <FolderIcon/>
-                        </Avatar>
+                        <Avatar src={dialog.photos.small ? dialog.photos.small : userPhoto }/>
                     </ListItemAvatar>
                     <ListItemText
-                        primary={dialog.name}
+                        primary={dialog.userName}
                     />
                     </NavLink>
                 </ListItem>)

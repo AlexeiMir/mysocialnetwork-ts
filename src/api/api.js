@@ -48,6 +48,9 @@ export const authAPI ={
     },
     logout(){
         return instance.delete('auth/login')
+    },
+    getCaptchaUrl(){
+        return instance.get('security/get-captcha-url')
     }
 }
 
@@ -56,7 +59,8 @@ export const profileAPI = {
         return instance.get(`profile/${userId}`)
     },
     updateProfile(profile){
-        return instance.put('profile',{profile})
+        debugger
+        return instance.put('profile',profile)
     },
     updateStatus(status){
         return instance.put('profile/status',{status})
