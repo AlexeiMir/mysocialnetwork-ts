@@ -17,10 +17,10 @@ const LoginPage = (props) => {
         <div className={s.auth}>
         <form onSubmit={handleSubmit} className={s.loginForm}>
             <div className={s.formItem}>
-                <Field name="email" component={renderTextField} label="Email"  />
+                <Field name="email" component={renderTextField} label="Email" multiline={false} rows={1}  />
             </div>
             <div>
-                <Field name="password" component={renderTextField} label="Password"  />
+                <Field name="password" component={renderTextField} label="Password" multiline={false} rows={1}  />
             </div>
             <div className={s.formItem}>
                 <Field name="rememberMe" component={renderCheckbox} label="Remember me" />

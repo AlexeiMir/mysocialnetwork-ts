@@ -4,7 +4,8 @@ import MyPosts from "./MyPosts/MyPosts";
 import Preloader from "../common/Preloader"
 
 
-const Profile = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto,posts}) => {
+const Profile = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto,
+                     posts,handleAddPost,handleDeletePost,handleUpdateProfile}) => {
 
     if (!profile) {
         return <Preloader/>
@@ -12,8 +13,9 @@ const Profile = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto,po
 
     return <>
         <ProfileInfo profile={profile} handleUpdateStatus={handleUpdateStatus}
-                     status={status} isOwner={isOwner}  handleUploadPhoto={handleUploadPhoto}  />
-        <MyPosts posts={posts} profile={profile} />
+                     status={status} isOwner={isOwner}  handleUploadPhoto={handleUploadPhoto}
+                     handleUpdateProfile={handleUpdateProfile}  />
+        <MyPosts posts={posts} profile={profile} handleAddPost={handleAddPost} handleDeletePost={handleDeletePost} />
 
         </>
 }

@@ -5,15 +5,20 @@ import React from "react";
 
 
 export const renderTextField = ({
-                             label,
-                             input,
-                             meta: { touched, invalid, error },
-                             ...custom
-                         }) => (
+                                    label,
+                                    input,
+                                    meta: {touched, invalid, error},
+                                    multiline,
+                                    rows,
+                                    placeholder,
+                                    ...custom
+                                }) => (
     <TextField
         label={label}
+        multiline={multiline}
+        rows={rows}
         id={label}
-        placeholder={label}
+        placeholder={placeholder}
         variant="outlined"
         error={touched && invalid}
         helperText={touched && error}
@@ -22,7 +27,7 @@ export const renderTextField = ({
     />
 )
 
-export const renderCheckbox = ({ input, label }) => (
+export const renderCheckbox = ({input, label}) => (
     <div>
         <FormControlLabel
             control={

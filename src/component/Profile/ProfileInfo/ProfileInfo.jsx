@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from "./ProfileInfo.module.css"
 import Grid from "@material-ui/core/Grid";
 import userPhoto from '../../../assets/images/user.png'
@@ -7,15 +7,23 @@ import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ProfileData from "./ProfileData";
 import Preloader from "../../common/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import IconButton from "@material-ui/core/IconButton";
+import EditePopupProfileInfoRedux from "./EditePopupProfileInfo";
 
-const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto}) => {
 
+const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto,handleUpdateProfile}) => {
+    const [confirmOpen, setConfirmOpen] = useState(false);
    
 
     const onMainPhotoSelect = (e) => {
         if (e.target.files.length){
             handleUploadPhoto(e.target.files[0])
         }
+    }
+
+    const submit = (profileData) => {
+        debugger
+        handleUpdateProfile(profileData)
     }
 
     return <>
@@ -48,15 +56,25 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
                                 <Grid container justify="center">
                                     <Grid item xs>
                                         <Grid container justify="flex-end" spacing={3}>
-                                            {isOwner&&<input id="file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}
-                                            />}
-                                            <label htmlFor="file"> <BackupOutlinedIcon fontSize={"large"}
-                                                className={s.uploadOutlined} /></label>
+                                            {isOwner&&
+                                            <label htmlFor="file">
+                                                <IconButton aria-label="settings" >
+                                                    <input id="file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}
+                                                    />
+                                                <BackupOutlinedIcon fontSize={"large"}
+                                                className={s.uploadOutlined} />
+                                                </IconButton>
+                                            </label>}
                                         </Grid>
                                     </Grid>
                                     <Grid item xs>
                                         <Grid container justify="center" spacing={3}>
-                                            {isOwner&&<AccountBoxOutlinedIcon fontSize={"large"} className={s.uploadOutlined}/>}
+                                            {isOwner&&
+                                                <AccountBoxOutlinedIcon fontSize={"large"} className={s.uploadOutlined}
+                                                onClick={() => setConfirmOpen(true) }/>
+                                            }
+                                            <EditePopupProfileInfoRedux onSubmit={submit} open={confirmOpen}
+                                                                   setOpen={setConfirmOpen} profile={profile}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

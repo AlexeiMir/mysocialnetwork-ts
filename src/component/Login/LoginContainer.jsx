@@ -9,7 +9,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.authPage.isAuth)
 
-    if (isAuth) { return <Redirect to={"/users"} /> }
+    if (isAuth) { return <Redirect to={"/profile"} /> }
 
     const onSubmit = (formData) => {
 

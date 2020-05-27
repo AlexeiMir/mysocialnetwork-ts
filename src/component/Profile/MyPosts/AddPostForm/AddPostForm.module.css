@@ -1,0 +1,28 @@
+.post {
+    grid-area: p;
+    width:100%;
+    margin-bottom: 50px;
+
+}
+
+.buttonPost {
+    grid-area: b;
+
+}
+
+
+.postBlock{
+    display: grid;
+    margin-left:100px;
+    margin-top: 70px;
+    width: 66%;
+    grid-template-columns:5% 95% ;
+    grid-template-areas:
+            "h p p"
+            ". b b";
+
+}
+
+.imagePost{
+    grid-area: h;
+}
