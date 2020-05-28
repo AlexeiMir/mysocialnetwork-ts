@@ -7,26 +7,24 @@ import FolderIcon from "@material-ui/icons/Folder";
 import ListItemText from "@material-ui/core/ListItemText";
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../../assets/images/man.png"
+import s from "./DialogItem.module.css"
 
 
 
-const DialogItem = ({dialogs}) => {
+const DialogItem = ({dialog,handleListMessages}) => {
 
     return <>
         <List>
-            {dialogs ? dialogs.map(dialog =>
-                <ListItem key={dialog.id}>
-                    <NavLink to={"dialogs/"+ dialog.id}>
+                <ListItem className={s.item}>
+                    <NavLink to={"dialogs/"+ dialog.id} onClick={() => handleListMessages(dialog.id)}>
                     <ListItemAvatar>
-                        <Avatar src={dialog.photos.small ? dialog.photos.small : userPhoto }/>
+                        <Avatar src={userPhoto}/>
                     </ListItemAvatar>
                     <ListItemText
-                        primary={dialog.userName}
+                        primary={dialog.userName} secondary={dialog.hasNewMessages ? dialog.newMessagesCount : null }
                     />
                     </NavLink>
-                </ListItem>)
-                : null
-            }
+                </ListItem>
         </List>
         </>
 

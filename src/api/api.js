@@ -34,7 +34,7 @@ export const dialogsAPI = {
     return instance.get(`dialogs/${userId}/messages`)
     },
     //send message to your friend
-    sendMessageToFriend(userId,message){
+    sendMessageToFriend(message,userId){
         return instance.post(`dialogs/${userId}/messages`,{message})
     }
 }

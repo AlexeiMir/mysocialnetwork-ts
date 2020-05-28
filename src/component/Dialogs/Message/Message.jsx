@@ -1,7 +1,16 @@
 import React from "react";
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
-const Message = () => {
-    return<div></div>
+const Message = ({message}) => {
+    return <>
+     <Chip 
+        avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
+        label={message}
+        //onDelete={handleDelete}
+        variant="outlined"
+      />
+    </>
 
 }
 

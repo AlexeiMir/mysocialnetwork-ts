@@ -2,13 +2,15 @@ import {dialogsAPI} from "../api/api";
 
 const TOGGLE_IS_FETCHING = "dialogs/TOGGLE_IS_FETCHING"
 const SET_DIALOGS = "dialogs/SET_DIALOGS"
+const SET_DIALOG_MESSAGES = "dialogs/SET_DIALOG_MESSAGES"
+const SET_ACTIVE_DIALOG_ID = "dialogs/SET_ACTIVE_DIALOG_ID"
+
 
 const initialState = {
-    dialogs: [
-        {id: 1, name:'Dimych'},
-        {id: 2, name:'Alex'}
-    ],
-    isFetching: false
+    dialogs: [],
+    isFetching: false,
+    messages:[],
+    activeDialogId:''
 }
 
 
@@ -22,7 +24,13 @@ const dialogsReducer = (state=initialState,action) => {
         case SET_DIALOGS:
         
             return {
-                ...state,dialogs:{...state.dialogs,payload}
+                ...state,dialogs:[...state.dialogs,...payload]
+            }
+
+            case SET_ACTIVE_DIALOG_ID:
+
+            return {
+                ...state,activeDialogId:payload
             }
 
         default:
@@ -33,12 +41,14 @@ const dialogsReducer = (state=initialState,action) => {
 
 const toggleIsFetchingDialogs = (isFetching) => ({type:TOGGLE_IS_FETCHING,isFetching})
 const setDialogs = (payload) => ({type:SET_DIALOGS,payload})
+const setDialogMessages = (payload) => ({type:SET_DIALOG_MESSAGES,payload})
+const setActiveDialogId = (payload) => ({type:SET_ACTIVE_DIALOG_ID,payload})
+
 
 
 export const getAllDialogs = () => async(dispatch) => {
     dispatch(toggleIsFetchingDialogs(true))
     const response = await dialogsAPI.getAllDialogs()
-    debugger
     dispatch(setDialogs(response.data))
     dispatch(toggleIsFetchingDialogs(false))
 
@@ -54,6 +64,23 @@ const response = await dialogsAPI.startChatting(userId)
         dispatch(toggleIsFetchingDialogs(false))
 
     }
+}
+
+export const getListMessages = (dialogId) => async(dispatch) => {
+    dispatch(toggleIsFetchingDialogs(true))
+    dispatch(setActiveDialogId(dialogId))
+    const response = await dialogsAPI.getListsMessages(dialogId)
+    dispatch(setDialogMessages(response.data))
+    dispatch(toggleIsFetchingDialogs(false))
+}
+
+export const sendMessage = (message) => async(dispatch,getState) => {
+    const userId = getState().dialogsPage.activeDialogId
+    dispatch(toggleIsFetchingDialogs(true))
+    const response = await dialogsAPI.sendMessageToFriend(message,userId)
+
+    dispatch(toggleIsFetchingDialogs(false))
+
 }
 
 export default dialogsReducer;
