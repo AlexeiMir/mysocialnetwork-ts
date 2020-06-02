@@ -7,6 +7,7 @@ const SET_TOTAL_USERS_COUNT = "users/SET_TOTAL_USERS_COUNT"
 const TOGGLE_FOLLOWING_IN_PROGRESS = "users/TOGGLE_FOLLOWING_IN_PROGRESS"
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
+const SET_SEARCHED_USER = "SET_SEARCHED_USER"
 
 const initialState = {
     users: [],
@@ -14,12 +15,14 @@ const initialState = {
     pageSize: 10,
     currentPage: 5,
     isFetching: false,
-    followingInProgress:[]
+    followingInProgress:[],
+    searchedUser:''
 }
 
 const usersReducer = (state = initialState, action) => {
     const {payload} = action
     switch (action.type) {
+        case SET_SEARCHED_USER:
         case SET_USERS:
             return {
                 ...state, users: payload
@@ -78,14 +81,21 @@ const setTotalUsersCount = (payload) => ({type:SET_TOTAL_USERS_COUNT,payload})
 const toggleFollowingInProgress = (isFetching,userId) => ({type:TOGGLE_FOLLOWING_IN_PROGRESS,isFetching,userId})
 const followSuccess = (userId) => ({type:FOLLOW,userId})
 const unFollowSuccess = (userId) => ({type:UNFOLLOW,userId})
+const setSearchedUser = (payload) => ({type:SET_SEARCHED_USER,payload})
 
-export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
+export const requestUsers = (currentPage, pageSize,searchedUser=null) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(currentPage))
-    const response = await usersAPI.getUsers(currentPage, pageSize)
+    const response = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
     dispatch(setUsers(response.data.items))
     dispatch(toggleIsFetching(false))
     dispatch(setTotalUsersCount(response.data.totalCount))
+}
+
+export const searchUser = (userName) => async(dispatch) => {
+
+const response = await usersAPI.searchUser(userName)
+    dispatch(setSearchedUser(response.data.items))
 }
 
 const followUnfollowFlow =  async(dispatch,userId,apiMethod,actionCreator) => {

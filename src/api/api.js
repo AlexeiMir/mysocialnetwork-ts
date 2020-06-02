@@ -10,6 +10,9 @@ export const usersAPI = {
     getUsers(currentPage,pageSize){
         return instance.get(`users/?page=${pageSize}&count=${currentPage}`)
     },
+    searchUser(userName){
+        return instance.get(`users/?term=${userName}`)
+    },
     follow(userId){
 
         return instance.post(`follow/${userId}`)

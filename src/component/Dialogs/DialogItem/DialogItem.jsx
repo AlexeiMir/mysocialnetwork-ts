@@ -16,7 +16,7 @@ const DialogItem = ({dialog,handleListMessages}) => {
     return <>
         <List>
                 <ListItem className={s.item}>
-                    <NavLink to={"dialogs/"+ dialog.id} onClick={() => handleListMessages(dialog.id)}>
+                    <NavLink to={"dialogs/"+ dialog.id} onClick={() => handleListMessages(dialog.userName)}>
                     <ListItemAvatar>
                         <Avatar src={userPhoto}/>
                     </ListItemAvatar>

@@ -3,14 +3,14 @@ import {dialogsAPI} from "../api/api";
 const TOGGLE_IS_FETCHING = "dialogs/TOGGLE_IS_FETCHING"
 const SET_DIALOGS = "dialogs/SET_DIALOGS"
 const SET_DIALOG_MESSAGES = "dialogs/SET_DIALOG_MESSAGES"
-const SET_ACTIVE_DIALOG_ID = "dialogs/SET_ACTIVE_DIALOG_ID"
+const SET_ACTIVE_USER_ID = "dialogs/SET_ACTIVE_USER_ID"
 
 
 const initialState = {
     dialogs: [],
     isFetching: false,
     messages:[],
-    activeDialogId:''
+    activeUserId:''
 }
 
 
@@ -24,13 +24,13 @@ const dialogsReducer = (state=initialState,action) => {
         case SET_DIALOGS:
         
             return {
-                ...state,dialogs:[...state.dialogs,...payload]
+                ...state,dialogs:[...payload]
             }
 
-            case SET_ACTIVE_DIALOG_ID:
+            case SET_ACTIVE_USER_ID:
 
             return {
-                ...state,activeDialogId:payload
+                ...state,activeUserId:payload
             }
 
         default:
@@ -42,7 +42,7 @@ const dialogsReducer = (state=initialState,action) => {
 const toggleIsFetchingDialogs = (isFetching) => ({type:TOGGLE_IS_FETCHING,isFetching})
 const setDialogs = (payload) => ({type:SET_DIALOGS,payload})
 const setDialogMessages = (payload) => ({type:SET_DIALOG_MESSAGES,payload})
-const setActiveDialogId = (payload) => ({type:SET_ACTIVE_DIALOG_ID,payload})
+const setActiveUserId = (payload) => ({type:SET_ACTIVE_USER_ID,payload})
 
 
 
@@ -60,16 +60,18 @@ export const startChatting = (userId) => {
 const response = await dialogsAPI.startChatting(userId)
         if (response.resultCode === 0) {
             dispatch(getAllDialogs())
+            dispatch(setActiveUserId(userId))
         }
         dispatch(toggleIsFetchingDialogs(false))
 
     }
 }
 
-export const getListMessages = (dialogId) => async(dispatch) => {
+export const getListMessages = (userName) => async(dispatch,getState) => {
     dispatch(toggleIsFetchingDialogs(true))
-    dispatch(setActiveDialogId(dialogId))
-    const response = await dialogsAPI.getListsMessages(dialogId)
+    let user = getState().usersPage.users.filter(user => user.name === userName )
+    debugger
+    const response = await dialogsAPI.getListsMessages(user)
     dispatch(setDialogMessages(response.data))
     dispatch(toggleIsFetchingDialogs(false))
 }

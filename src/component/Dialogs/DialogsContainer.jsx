@@ -16,7 +16,7 @@ const DialogsContainer = () => {
         dispatch(getAllDialogs())
     },[dispatch])
 
-    const handleListMessages = (dialogId) => dispatch(getListMessages(dialogId))
+    const handleListMessages = (userName) => dispatch(getListMessages(userName))
     const handleSendMessage = (message) => dispatch(sendMessage(message))
 
 
