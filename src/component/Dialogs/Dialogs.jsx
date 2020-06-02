@@ -17,11 +17,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dialogs = ({dialogs,handleListMessages,messages,handleSendMessage}) => {
+const Dialogs = ({dialogs,messages,getAllMessagesUser,getNewUserProfile,handleSendMessage}) => {
     const classes = useStyles();
+    
     const onSubmit = (formData) => {
             handleSendMessage(formData.message)
     } 
+
+    const handleListMessages = (id) => {
+        getNewUserProfile(id)
+        getAllMessagesUser(id)
+
+    }
 
     return <>
         <Grid item xs={6}>

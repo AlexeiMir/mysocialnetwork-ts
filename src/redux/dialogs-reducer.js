@@ -67,17 +67,15 @@ const response = await dialogsAPI.startChatting(userId)
     }
 }
 
-export const getListMessages = (userName) => async(dispatch,getState) => {
+export const getListMessages = (userId) => async(dispatch) => {
     dispatch(toggleIsFetchingDialogs(true))
-    let user = getState().usersPage.users.filter(user => user.name === userName )
-    debugger
-    const response = await dialogsAPI.getListsMessages(user)
+    const response = await dialogsAPI.getListsMessages(userId)
     dispatch(setDialogMessages(response.data))
     dispatch(toggleIsFetchingDialogs(false))
 }
 
-export const sendMessage = (message) => async(dispatch,getState) => {
-    const userId = getState().dialogsPage.activeDialogId
+export const sendMessage = (message,userId) => async(dispatch) => {
+    
     dispatch(toggleIsFetchingDialogs(true))
     const response = await dialogsAPI.sendMessageToFriend(message,userId)
 

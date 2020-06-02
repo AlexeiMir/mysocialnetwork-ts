@@ -9,6 +9,7 @@ import Preloader from "../../common/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import IconButton from "@material-ui/core/IconButton";
 import EditePopupProfileInfoRedux from "./EditePopupProfileInfo";
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 
 const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhoto,handleUpdateProfile}) => {
@@ -56,12 +57,11 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
                                 <Grid container justify="center">
                                     <Grid item xs>
                                         <Grid container justify="flex-end" spacing={3}>
+                                        <input id="icon-button-file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}/>
                                             {isOwner&&
-                                            <label htmlFor="file" >
-                                                <IconButton aria-label="settings" >
-                                                    <input id="file" type={"file"} className={s.fileBtn} onChange={onMainPhotoSelect}
-                                                    />
-                                                <BackupOutlinedIcon fontSize={"large"}
+                                            <label htmlFor="icon-button-file" >
+                                                <IconButton aria-label="settings" component="span">
+                                                <PhotoCamera fontSize={"large"}
                                                 className={s.uploadOutlined} />
                                                 </IconButton>
                                             </label>}

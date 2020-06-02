@@ -77,7 +77,7 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
 
     const handleNameSearch = (e) => {
         setValue(e.target.value)
-        setEditeMode(true)
+      
         handleSearch(value)
 
     }
@@ -96,9 +96,11 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
 
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
+                            <IconButton onChange={()=>setEditeMode(false)} color="primary"  component="span" >
                                 <SearchIcon />
+                               </IconButton>
                             </div>
-                            <Input onChange={handleNameSearch} onBlur={()=>setEditeMode(false)} autoFocus={true}
+                            <InputBase onChange={handleNameSearch} onBlur={()=>setEditeMode(false)} autoFocus={true} inputComponent='input'
                                 placeholder="Search…"
                                        value={value}
                                 classes={{
