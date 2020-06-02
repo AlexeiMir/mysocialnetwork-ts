@@ -12,6 +12,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,7 +98,7 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
                             </div>
-                            <TextField onChange={handleNameSearch} onBlur={()=>setEditeMode(false)} autoFocus={true}
+                            <Input onChange={handleNameSearch} onBlur={()=>setEditeMode(false)} autoFocus={true}
                                 placeholder="Search…"
                                        value={value}
                                 classes={{
