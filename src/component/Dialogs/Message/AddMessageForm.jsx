@@ -7,7 +7,7 @@ const AddMessageForm = ({handleSubmit,pristine, submitting}) => {
 
 return <>
 <form onSubmit={handleSubmit}>
-<Field name="message" component={renderTextField} multiline={true} rows={2}/>
+<Field name="newTextMessage" component={renderTextField} multiline={true} rows={2}/>
 <Button type="submit" disabled={pristine || submitting}
                         variant="outlined" size="small" color="primary" component='button' >
                     Send

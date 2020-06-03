@@ -69,17 +69,15 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
     const [editeMode,setEditeMode] = useState(true)
     const classes = useStyles();
 
-    const handleSearch = (name) => {
-            if (name.length && !editeMode){
-                handleSearchUser(name)
+    const handleSearch = (e) => {
+        
+        if (e.key === 'Enter') {
+            setEditeMode(false)
+            if (value.length && !editeMode){
+                handleSearchUser(value)
             }
-    }
-
-    const handleNameSearch = (e) => {
-        setValue(e.target.value)
-      
-        handleSearch(value)
-
+        }
+           
     }
 
     return (
@@ -96,11 +94,11 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
 
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                            <IconButton onChange={()=>setEditeMode(false)} color="primary"  component="span" >
+                            <IconButton onClick={()=>setEditeMode(false)} color="primary"  component="span" >
                                 <SearchIcon />
                                </IconButton>
                             </div>
-                            <InputBase onChange={handleNameSearch} onBlur={()=>setEditeMode(false)} autoFocus={true} inputComponent='input'
+                            <InputBase onChange={(e)=> setValue(e.target.value)}  onKeyPressCapture={handleSearch} inputComponent='input'
                                 placeholder="Search…"
                                        value={value}
                                 classes={{

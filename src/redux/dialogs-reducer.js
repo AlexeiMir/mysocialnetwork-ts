@@ -78,7 +78,9 @@ export const sendMessage = (message,userId) => async(dispatch) => {
     
     dispatch(toggleIsFetchingDialogs(true))
     const response = await dialogsAPI.sendMessageToFriend(message,userId)
+    if (response.data.resultCode === 0) {
 
+    }
     dispatch(toggleIsFetchingDialogs(false))
 
 }

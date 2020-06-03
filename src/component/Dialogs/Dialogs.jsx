@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dialogs = ({dialogs,messages,getAllMessagesUser,getNewUserProfile,handleSendMessage}) => {
+const Dialogs = ({dialogs,messages,getAllMessagesUser,getNewUserProfile,handleSendMessage,profile}) => {
     const classes = useStyles();
     
-    const onSubmit = (formData) => {
-            handleSendMessage(formData.message)
+    const onSubmit = (values) => {
+            handleSendMessage(values.newTextMessage,profile.userId)
     } 
 
     const handleListMessages = (id) => {

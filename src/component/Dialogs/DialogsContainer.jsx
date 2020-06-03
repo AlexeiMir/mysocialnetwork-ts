@@ -10,6 +10,7 @@ const DialogsContainer = () => {
     const dialogs = useSelector(state => state.dialogsPage.dialogs)
     const messages = useSelector(state => state.dialogsPage.messages)
     const isFetching = useSelector(state => state.dialogsPage.isFetching)
+    const profile = useSelector(state => state.profilePage.profile)
     
     const dispatch = useDispatch()
 
@@ -18,7 +19,7 @@ const DialogsContainer = () => {
     },[dispatch])
 
     const getAllMessagesUser = (userId) => dispatch(getListMessages(userId))
-    const handleSendMessage = (message) => dispatch(sendMessage(message))
+    const handleSendMessage = (message,userId) => dispatch(sendMessage(message,userId))
     const getNewUserProfile = (userId) => dispatch(getProfile(userId))
 
 
@@ -26,7 +27,8 @@ const DialogsContainer = () => {
 
         {isFetching
         ? <Preloader/>:null}
-        <Dialogs dialogs={dialogs} getAllMessagesUser={getAllMessagesUser} messages={messages} handleSendMessage={handleSendMessage} getNewUserProfile={getNewUserProfile} />
+        <Dialogs dialogs={dialogs} getAllMessagesUser={getAllMessagesUser} messages={messages}
+         handleSendMessage={handleSendMessage} getNewUserProfile={getNewUserProfile} profile={profile}  />
 
         </>
 }
