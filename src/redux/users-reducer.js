@@ -8,15 +8,25 @@ const TOGGLE_FOLLOWING_IN_PROGRESS = "users/TOGGLE_FOLLOWING_IN_PROGRESS"
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_SEARCHED_USER = "SET_SEARCHED_USER"
+const SET_USER_PAGE_SIZE = "users/SET_USER_PAGE_SIZE"
+const SET_FRIENDS = "users/SET_FRIENDS"
+
 
 const initialState = {
     users: [],
+    friends:[],
     totalUsersCount: 0,
     pageSize: 10,
     currentPage: 5,
     isFetching: false,
     followingInProgress:[],
-    searchedUser:''
+    optionsForUsers: [
+        {title:5, value:5},
+        {title:10, value:10},
+        {title:15, value:15},
+        {title:20, value:20}
+    ]
+
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -25,7 +35,12 @@ const usersReducer = (state = initialState, action) => {
         case SET_SEARCHED_USER:
         case SET_USERS:
             return {
-                ...state, users: payload
+                ...state, users: payload,
+
+            }
+        case SET_FRIENDS:
+            return {
+                ...state, ...state.friends.push(...action.users.filter(user => user.followed))
             }
 
         case TOGGLE_IS_FETCHING:
@@ -57,6 +72,7 @@ const usersReducer = (state = initialState, action) => {
                     }
                     return user
                 })
+
             }
         case UNFOLLOW:
             return {
@@ -68,6 +84,11 @@ const usersReducer = (state = initialState, action) => {
                     return user
                 })
             }
+        case SET_USER_PAGE_SIZE:
+            return {
+                ...state,
+                pageSize:payload
+            }
 
         default:
             return state
@@ -75,6 +96,7 @@ const usersReducer = (state = initialState, action) => {
 }
 
 const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+const setFriends = (users) => ({type:SET_FRIENDS,users})
 const setUsers = (payload) => ({type: SET_USERS, payload})
 const setCurrentPage = (payload) => ({type:SET_CURRENT_PAGE, payload})
 const setTotalUsersCount = (payload) => ({type:SET_TOTAL_USERS_COUNT,payload})
@@ -82,12 +104,15 @@ const toggleFollowingInProgress = (isFetching,userId) => ({type:TOGGLE_FOLLOWING
 const followSuccess = (userId) => ({type:FOLLOW,userId})
 const unFollowSuccess = (userId) => ({type:UNFOLLOW,userId})
 const setSearchedUser = (payload) => ({type:SET_SEARCHED_USER,payload})
+export const setUserPageSize = (payload) => ({type:SET_USER_PAGE_SIZE,payload})
+
 
 export const requestUsers = (currentPage, pageSize,searchedUser=null) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(currentPage))
     const response = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
     dispatch(setUsers(response.data.items))
+    dispatch(setFriends(response.data.items))
     dispatch(toggleIsFetching(false))
     dispatch(setTotalUsersCount(response.data.totalCount))
 }
@@ -96,12 +121,15 @@ export const searchUser = (userName) => async(dispatch) => {
 
 const response = await usersAPI.searchUser(userName)
     dispatch(setSearchedUser(response.data.items))
+
+
+
 }
 
 const followUnfollowFlow =  async(dispatch,userId,apiMethod,actionCreator) => {
     dispatch(toggleFollowingInProgress(true,userId))
     const response = await apiMethod(userId)
-    if (response.resultCode === 0){
+    if (response.data.resultCode === 0){
         dispatch(actionCreator(userId))
         dispatch(toggleFollowingInProgress(false,userId))
     }

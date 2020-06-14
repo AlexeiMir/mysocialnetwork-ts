@@ -6,9 +6,20 @@ const instance = axios.create({
     headers: {'API-KEY': '8a32d348-6f9e-451a-b238-e010eb3eea31'}
 })
 
+export const newsAPI = {
+    getNews(pageSize,page){
+        return axios.get(`https://newsapi.org/v2/top-headlines?
+        country=us&category=business&pageSize=${pageSize}&page=${page}&apiKey=093a56ef92584facb242b343607a0bad`)
+    },
+    searchNews(pageSize,searchValue){
+        return axios.get(`https://newsapi.org/v2/top-headlines?pageSize=${pageSize}&q=${searchValue}&apiKey=093a56ef92584facb242b343607a0bad`)
+    }
+
+}
+
 export const usersAPI = {
     getUsers(currentPage,pageSize){
-        return instance.get(`users/?page=${pageSize}&count=${currentPage}`)
+        return instance.get(`users/?page=${currentPage}&count=${pageSize}`)
     },
     searchUser(userName){
         return instance.get(`users/?term=${userName}`)
@@ -37,8 +48,8 @@ export const dialogsAPI = {
     return instance.get(`dialogs/${userId}/messages`)
     },
     //send message to your friend
-    sendMessageToFriend(message,userId){
-        return instance.post(`dialogs/${userId}/messages`,{message})
+    sendMessageToFriend(body,userId){
+        return instance.post(`dialogs/${userId}/messages`, {body})
     }
 }
 
@@ -62,7 +73,7 @@ export const profileAPI = {
         return instance.get(`profile/${userId}`)
     },
     updateProfile(profile){
-        debugger
+
         return instance.put('profile',profile)
     },
     updateStatus(status){

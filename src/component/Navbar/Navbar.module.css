@@ -1,3 +1,7 @@
 .nav{
     grid-area: navbar;
 }
+.activeItem {
+    border: 1px solid #3D4EAE;
+    background-color: rgba(0, 0, 0, .1);
+}

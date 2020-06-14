@@ -69,9 +69,11 @@ const ProfileInfo = ({profile,handleUpdateStatus,status,isOwner,handleUploadPhot
                                     </Grid>
                                     <Grid item xs>
                                         <Grid container justify="center" spacing={3}>
-                                            {isOwner&&
-                                                <AccountBoxOutlinedIcon fontSize={"large"} className={s.uploadOutlined}
-                                                onClick={() => setConfirmOpen(true) }/>
+                                            {isOwner&&<IconButton color="primary" aria-label="settings"
+                                                                  component="span" onClick={() => setConfirmOpen(true) } >
+                                                <AccountBoxOutlinedIcon fontSize={"large"}
+                                                />
+                                            </IconButton>
                                             }
                                             <EditePopupProfileInfoRedux onSubmit={submit} open={confirmOpen}
                                                                    setOpen={setConfirmOpen} profile={profile}/>

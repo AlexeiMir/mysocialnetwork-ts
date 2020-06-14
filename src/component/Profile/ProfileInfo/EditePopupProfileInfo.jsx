@@ -61,9 +61,9 @@ const EditePopupProfileInfo = ({profile,handleSubmit,open,setOpen,error}) => {
                             
                                 <div className={s.contacts}>{Object.keys(profile.contacts).map(key => {
                                     return <>
-                                        <div key={key.id} className={s.contactsField}>
+                                        <div key={key} className={s.contactsField}>
                                         <b>{key}:</b>
-                                            <Field key={key.id} name={"contacts."+key} component={renderTextField} label={key}
+                                            <Field name={"contacts."+key} component={renderTextField} label={key}
                                                    multiline={false} rows={1} placeholder={key}  /></div></>
                                 })}</div>
                             </div>

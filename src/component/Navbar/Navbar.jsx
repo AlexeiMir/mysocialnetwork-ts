@@ -19,13 +19,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
     const classes = useStyles();
+    const handleListItemClick = (event, index) => {
+        setSelectedIndex(index);
+    };
+
+    const itemMenu = (id,name,path,iconName) => ({
+        id,name,path,iconName
+    })
+
 
     return (
         <div className={s.nav}>
             <div className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
-                    <ListItem button component={NavLink} exact to="/users">
+                  { [itemMenu(0,"Users","/users","InboxIcon"),
+                  itemMenu(1,"Dialogs","/dialogs","InboxIcon"),
+                  itemMenu(2,"Profile","/profile","InboxIcon"),
+                  itemMenu(3,"News","/news","InboxIcon"),
+                      ].map(p => {
+                      return( <ListItem button component={NavLink} exact to={p.path}
+                                        selected={selectedIndex}
+                                        onClick={(event) => handleListItemClick(event, p.id)}
+                          >
+                          <ListItemIcon>
+                              <InboxIcon/>
+                          </ListItemIcon>
+                          <ListItemText primary={p.name}/>
+                      </ListItem>
+                      )
+                  })}
+
+
+                   {/* <ListItem button component={NavLink} exact to="/users">
                         <ListItemIcon>
                             <InboxIcon/>
                         </ListItemIcon>
@@ -43,6 +70,12 @@ const Navbar = () => {
                         </ListItemIcon>
                         <ListItemText primary="Profile"/>
                     </ListItem>
+                    <ListItem button component={NavLink} exact to="/news">
+                        <ListItemIcon>
+                            <DraftsIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="News"/>
+                    </ListItem>*/}
                 </List>
             </div>
         </div>

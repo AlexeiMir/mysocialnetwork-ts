@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import DialogItem from "./DialogItem/DialogItem";
@@ -17,12 +17,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dialogs = ({dialogs,messages,getAllMessagesUser,getNewUserProfile,handleSendMessage,profile}) => {
+const Dialogs = ({dialogs, messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
+                     myId,myPhoto,login}) => {
+
+
     const classes = useStyles();
-    
+
+
+
     const onSubmit = (values) => {
-            handleSendMessage(values.newTextMessage,profile.userId)
-    } 
+        handleSendMessage(values.newTextMessage, userProfile.userId)
+    }
 
     const handleListMessages = (id) => {
         getNewUserProfile(id)
@@ -31,13 +36,19 @@ const Dialogs = ({dialogs,messages,getAllMessagesUser,getNewUserProfile,handleSe
     }
 
     return <>
-        <Grid item xs={6}>
-            {dialogs.length ? dialogs.map(dialog => <DialogItem key={dialog.id} dialog={dialog} handleListMessages={handleListMessages}/>)
-            : null}
-        </Grid>
-        <Grid item xs={6} className={s.messages}>
-            {messages.length ? messages.map(message => <Message  message={message}/> ) : null}
-            <AddMessageFormRedux onSubmit={onSubmit} />
+        <Grid container spacing={3}>
+            <Grid item xs={4}>
+                {dialogs.length ? dialogs.map(dialog => <DialogItem key={dialog.id} dialog={dialog}
+                                                                    profile={userProfile}
+                                                                    handleListMessages={handleListMessages}/>)
+                    : null}
+            </Grid>
+            <Grid item xs={8} className={s.messages}>
+                {messages.length ? messages.map(message => <Message key={message.id} message={message}
+                                                                    myId={myId} myPhoto={myPhoto}
+                                                                    login={login} userProfile={userProfile}/>) : null}
+                <AddMessageFormRedux onSubmit={onSubmit}/>
+            </Grid>
         </Grid>
     </>
 }

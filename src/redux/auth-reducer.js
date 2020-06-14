@@ -1,7 +1,8 @@
-import {authAPI} from "../api/api";
+import {authAPI, profileAPI} from "../api/api";
 
-const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA"
-const SET_CAPTCHA_URL = "SET_CAPTCHA_URL"
+const SET_AUTH_USER_DATA = "auth/SET_AUTH_USER_DATA"
+const SET_CAPTCHA_URL = "auth/SET_CAPTCHA_URL"
+const SET_MY_PHOTO = "auth/SET_MY_PHOTO"
 
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
     password:null,
     userId:null,
     login:null,
-    captchaUrl:null
+    captchaUrl:null,
+    myPhoto:null
 
 }
 
@@ -27,6 +29,10 @@ const authReducer = (state=initialState,action) => {
                 return{
                     ...state,captchaUrl:payload
                 }
+        case  SET_MY_PHOTO:
+            return {
+                ...state,myPhoto:payload
+            }
         default:
             return state
 
@@ -35,6 +41,7 @@ const authReducer = (state=initialState,action) => {
 
 const setAuthUserData = (userId,email,login,isAuth) => ({type:SET_AUTH_USER_DATA,payload:{userId,email,login,isAuth}})
 const setCaptchaUrl = (payload) => ({type:SET_CAPTCHA_URL,payload})
+const setMyPhoto = (payload) => ({type:SET_MY_PHOTO,payload})
 
 export const getAuthUserData = () => async(dispatch) => {
     const response = await authAPI.me()
@@ -43,6 +50,11 @@ export const getAuthUserData = () => async(dispatch) => {
        dispatch( setAuthUserData(id,email,login,true))
     }
 
+}
+
+export const getMyPhoto = (userId) => async(dispatch) => {
+    const response = await profileAPI.getProfile(userId)
+    dispatch(setMyPhoto(response.data.photos))
 }
 
 export const login = (email,password,rememberMe,captcha) => async(dispatch) =>{

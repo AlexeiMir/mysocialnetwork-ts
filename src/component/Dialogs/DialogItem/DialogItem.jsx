@@ -11,14 +11,15 @@ import s from "./DialogItem.module.css"
 
 
 
-const DialogItem = ({dialog,handleListMessages}) => {
+const DialogItem = ({dialog,handleListMessages,profile}) => {
 
     return <>
         <List>
-                <ListItem className={s.item}>
-                    <NavLink to={"dialogs/"+ dialog.id} onClick={() => handleListMessages(dialog.id)}>
+                <ListItem className={s.item +' '+
+                (profile && profile.userId === dialog.id && s.active)}>
+                    <NavLink className={s.itemText} to={"dialogs/"+ dialog.id} onClick={() => handleListMessages(dialog.id)}>
                     <ListItemAvatar>
-                        <Avatar src={userPhoto}/>
+                        <Avatar src={dialog.photos.large ?  dialog.photos.large : userPhoto}/>
                     </ListItemAvatar>
                     <ListItemText
                         primary={dialog.userName} secondary={dialog.hasNewMessages ? dialog.newMessagesCount : null }

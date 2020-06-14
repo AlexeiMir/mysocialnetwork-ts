@@ -1,4 +1,8 @@
-.item{
+.itemText{
     text-decoration: none;
     color: unset;
+}
+.active {
+    border: 1px solid #3D4EAE;
+    background-color: rgba(0, 0, 0, .1);
 }

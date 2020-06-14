@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Users from "./Users";
 import {useDispatch, useSelector} from "react-redux";
-import {follow, requestUsers, unfollow} from "../../redux/users-reducer";
+import {follow, requestUsers, searchUser, setUserPageSize, unfollow} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import {startChatting} from "../../redux/dialogs-reducer";
 import {withRouter} from "react-router-dom";
@@ -14,11 +14,12 @@ const UsersContainer = () => {
     const pageSize = useSelector(state => state.usersPage.pageSize)
     const isFetching = useSelector(state => state.usersPage.isFetching)
     const followingInProgress = useSelector(state => state.usersPage.followingInProgress)
+    const optionsForUsers = useSelector(state => state.usersPage.optionsForUsers)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(requestUsers(currentPage,pageSize))
-    },[])
+    },[pageSize])
 
     const onPageChanged = (pageNumber) => {
         dispatch(requestUsers(pageNumber,pageSize))
@@ -27,6 +28,8 @@ const UsersContainer = () => {
     const handleFollow = (userId) => {dispatch(follow(userId))}
     const handleUnfollow = (userId) => {dispatch(unfollow(userId))}
     const handleStartChatting = (userId) => {dispatch(startChatting(userId))}
+    const handlePageUserSize = (value) => {dispatch(setUserPageSize(value))}
+    const handleSearchUser = (nameUser) => {dispatch(searchUser(nameUser))}
 
 
 
@@ -41,6 +44,10 @@ const UsersContainer = () => {
                handleUnfollow={handleUnfollow}
                followingInProgress={followingInProgress}
                handleStartChatting={handleStartChatting}
+               optionsForUsers={optionsForUsers}
+               handlePageUserSize={handlePageUserSize}
+               handleSearchUser={handleSearchUser}
+
         />
     </>
 }

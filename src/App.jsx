@@ -12,6 +12,7 @@ import HeaderContainer from "./component/Header/HeaderContainer";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./component/common/Preloader";
 import ProfileContainer from "./component/Profile/ProfileContainer";
+import NewsContainer from "./News/NewsContainer";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             <Route path={"/users"} render={() => <UsersContainer/>}/>
             <Route path={"/dialogs"} render={() => <DialogsContainer/>}/>
             <Route path={"/profile/:userId?"} render={() => <ProfileContainer />}/>
+            <Route path={"/news"} render={() => <NewsContainer/>}/>
             <Route path={"/login"} render={() => <Login/>}/>
             <Route exact path={"/"} render={() => <Redirect to="/users"/>}/>
         </div>
