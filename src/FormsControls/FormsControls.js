@@ -10,6 +10,7 @@ export const renderTextField = ({
                                     meta: {touched, invalid, error},
                                     multiline,
                                     rows,
+                                    fullWidth,
                                     placeholder,
                                     ...custom
                                 }) => (
@@ -17,6 +18,7 @@ export const renderTextField = ({
         label={label}
         multiline={multiline}
         rows={rows}
+        fullWidth={fullWidth}
         id={label}
         placeholder={placeholder}
         variant="outlined"

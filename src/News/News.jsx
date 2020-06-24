@@ -77,7 +77,7 @@ const News = ({
                         }
                         title={article.title}
                         subheader={`${article.publishedAt.slice(8, 10)}.${article.publishedAt.slice(5, 7)}
-                .${article.publishedAt.slice(0, 4)} - ${article.publishedAt.slice(11, 19)}`}
+                .${article.publishedAt.slice(0, 4)} - ${article.publishedAt.slice(11, 13)}.${article.publishedAt.slice(14, 16)}`}
                     />
                     <CardMedia
                         className={classes.media}

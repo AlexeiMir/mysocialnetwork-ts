@@ -24,8 +24,7 @@ const EditePopupProfileInfo = ({profile,handleSubmit,open,setOpen,error}) => {
                 <DialogTitle id="form-dialog-title">Editing profile</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We will send updates
-                        occasionally.
+                        Update your profile
                     </DialogContentText>
 
                     <form onSubmit={handleSubmit} className={s.profileDescription}>

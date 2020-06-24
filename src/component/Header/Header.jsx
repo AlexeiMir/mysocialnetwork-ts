@@ -9,8 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import s from "./Header.module.css";
 import {NavLink} from "react-router-dom";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
+import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import userImage from "../../assets/images/user.png"
 
 
 
@@ -27,22 +28,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
-    const [value,setValue] = useState('')
+const Header = ({isAuth,loginUser,handleLogout,newMessagesCount,myPhoto}) => {
+
     const classes = useStyles();
 
-    const handleSearch = (e) => {
-        
-        if (e.key === 'Enter') {
 
-            if (value.length ){
-                handleSearchUser(value)
-                setValue('')
-
-            }
-        }
-           
-    }
 
     return (
         <div className={s.header}>
@@ -57,7 +47,20 @@ const Header = ({isAuth,loginUser,handleLogout,handleSearchUser}) => {
                         </Typography>
 
                         {isAuth
-                        ? <span className={s.logout}>{loginUser} <ExitToAppIcon onClick={()=>{handleLogout()}}/></span>
+                        ? <div className={s.logout}>
+                                <div>
+                                    <Badge badgeContent={newMessagesCount} color="secondary" showZero>
+                                        <Avatar src={myPhoto ? myPhoto.small : userImage}/>
+                                    </Badge>
+                                </div>
+                                <div>
+                                    {loginUser}
+                                </div>
+                                <div>
+                                    <ExitToAppIcon onClick={()=>{handleLogout()}}/>
+                                </div>
+
+                        </div>
                         :<NavLink to="/login" className={s.login}>
                                 <Button color="inherit" >Login</Button>
                             </NavLink>

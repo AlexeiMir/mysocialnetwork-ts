@@ -1,25 +1,28 @@
 import React from 'react'
-import { reduxForm, Field } from 'redux-form'
+import {reduxForm, Field} from 'redux-form'
 import Button from "@material-ui/core/Button";
 import {renderTextField} from "../../../FormsControls/FormsControls"
+import s from "./Message.module.css"
 
-const AddMessageForm = ({handleSubmit,pristine, submitting}) => {
+const AddMessageForm = ({handleSubmit, pristine, submitting}) => {
 
-return <>
-<form onSubmit={handleSubmit}>
-<Field name="newTextMessage" component={renderTextField} multiline={true} rows={2}/>
-<Button type="submit" disabled={pristine || submitting}
-                        variant="outlined" size="small" color="primary" component='button' >
-                    Send
-                </Button>
-</form>
 
-</>
+    return <>
+        <form onSubmit={handleSubmit} className={s.messageField}>
+            <Field name="newTextMessage" component={renderTextField}
+                   multiline={true} cols={150} rows={2} fullWidth={false} />
+            <Button type="submit" disabled={pristine || submitting}
+                    variant="outlined" size="small" color="primary" component='button'>
+                Send
+            </Button>
+        </form>
+
+    </>
 
 }
 
 const AddMessageFormRedux = reduxForm({
-    form:"send-message"
+    form: "send-message"
 })(AddMessageForm)
 
 export default AddMessageFormRedux;

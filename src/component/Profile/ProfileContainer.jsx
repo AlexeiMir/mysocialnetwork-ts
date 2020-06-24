@@ -12,6 +12,7 @@ import {
 } from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {getMyPhoto} from "../../redux/auth-reducer";
 
 const ProfileContainer = (props) => {
     const {match,history} = props
@@ -30,7 +31,7 @@ const ProfileContainer = (props) => {
  }
 
     const refreshProfile = () => {
-      
+
      dispatch(getProfile(userId))
      dispatch(getStatus(userId))
     }
@@ -41,7 +42,9 @@ const ProfileContainer = (props) => {
         refreshProfile()
     },[userId])
 
-   
+   useEffect(() => {
+       dispatch(getMyPhoto(userId))
+   },[userId])
 
     const handleUpdateStatus = (status) => {
            dispatch(updateStatus(status))

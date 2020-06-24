@@ -8,6 +8,11 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import {NavLink} from "react-router-dom";
 import s from "./Navbar.module.css"
+import Divider from '@material-ui/core/Divider';
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import userPhoto from "../../assets/images/man.png";
+import Typography from "@material-ui/core/Typography";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,68 +23,84 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Navbar = () => {
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+const Navbar = ({friends,isAuth}) => {
+
+    const [selectedIndex, setSelectedIndex] = React.useState();
     const classes = useStyles();
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
 
-    const itemMenu = (id,name,path,iconName) => ({
-        id,name,path,iconName
-    })
 
-
-    return (
+    return <>
+        <div className={s.navItem}>
         <div className={s.nav}>
             <div className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
-                  { [itemMenu(0,"Users","/users","InboxIcon"),
-                  itemMenu(1,"Dialogs","/dialogs","InboxIcon"),
-                  itemMenu(2,"Profile","/profile","InboxIcon"),
-                  itemMenu(3,"News","/news","InboxIcon"),
-                      ].map(p => {
-                      return( <ListItem button component={NavLink} exact to={p.path}
-                                        selected={selectedIndex}
-                                        onClick={(event) => handleListItemClick(event, p.id)}
-                          >
-                          <ListItemIcon>
-                              <InboxIcon/>
-                          </ListItemIcon>
-                          <ListItemText primary={p.name}/>
-                      </ListItem>
-                      )
-                  })}
-
-
-                   {/* <ListItem button component={NavLink} exact to="/users">
+                     <ListItem button component={NavLink} exact to="/users" selected={selectedIndex === 0}
+                               onClick={(event) => handleListItemClick(event, 0)}>
                         <ListItemIcon>
                             <InboxIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Users"/>
                     </ListItem>
-                    <ListItem button component={NavLink} exact to="/dialogs">
+                    <ListItem button component={NavLink} exact to="/dialogs" selected={selectedIndex === 1}
+                              onClick={(event) => handleListItemClick(event, 1)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Dialogs"/>
                     </ListItem>
-                    <ListItem button component={NavLink} exact to="/profile">
+                    <ListItem button component={NavLink} exact to="/profile" selected={selectedIndex === 2}
+                              onClick={(event) => handleListItemClick(event, 2)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Profile"/>
                     </ListItem>
-                    <ListItem button component={NavLink} exact to="/news">
+                    <ListItem button component={NavLink} exact to="/news" selected={selectedIndex === 3}
+                              onClick={(event) => handleListItemClick(event, 3)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
                         <ListItemText primary="News"/>
-                    </ListItem>*/}
+                    </ListItem>
+                </List>
+                <Divider />
+                <List component="nav" aria-label="secondary mailbox folders">
+                    <ListItem button>
+                        <ListItemText primary="Trash" />
+                    </ListItem>
+                    <ListItem component="nav" aria-label="secondary mailbox folders">
+                        <ListItemText primary="Spam" />
+                    </ListItem>
                 </List>
             </div>
         </div>
-    )
+        {isAuth && <div className={s.friends}>
+            <Typography variant="h6" gutterBottom>My friends</Typography>
+            <List>
+                {friends.length ?
+                    friends.map(friend => <ListItem key={friend.id}>
+                        <NavLink className={s.itemText} to={'/profile/'+friend.id} >
+                            <ListItemAvatar>
+                                <Avatar src={friend.photos.large ?  friend.photos.large : userPhoto}/>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={friend.name}
+                            />
+                        </NavLink>
+                    </ListItem>)
+                    : null
+                }
+
+        </List>
+        </div>}
+        </div>
+    </>
 }
 
 export default Navbar;
+
+
+

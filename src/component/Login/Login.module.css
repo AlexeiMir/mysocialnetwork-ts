@@ -1,12 +1,14 @@
 .auth {
-
-    margin-top: 250px;
+display: flex;
+    flex-direction: column;
+    margin-top: 12rem;
+    align-items: center;
 }
 
 .loginForm{
 
-    width: 500px;
-    margin: 0 auto;
+
+
 
 }
 .formItem:not(:last-child){

@@ -27,7 +27,7 @@
     position: absolute;
     z-index: -1;
 }
-.fileBtn + label {
+/*.fileBtn + label {
     font-size: 1.25em;
     font-weight: 700;
     color: white;
@@ -37,7 +37,7 @@
 
 
 
-}
+}*/
 .fileBtn:focus + label,
 .fileBtn + label:hover {
     background-color: #1890ff;
@@ -117,4 +117,15 @@
 
 .secondDescription{
     grid-area: s;
+}
+
+.settings{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: -2rem;
+}
+
+.profileSettings span{
+    padding: 0;
 }

@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
-import UsersContainer from "./component/Users/UsersContainer";
 import Navbar from "./component/Navbar/Navbar";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "./redux/redux-store";
@@ -12,7 +11,11 @@ import HeaderContainer from "./component/Header/HeaderContainer";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./component/common/Preloader";
 import ProfileContainer from "./component/Profile/ProfileContainer";
-import NewsContainer from "./News/NewsContainer";
+import {withSuspense} from "./hoc/withSuspense";
+import NavbarContainer from "./component/Navbar/NavbarContainer";
+
+const UsersContainer = React.lazy(() => import("./component/Users/UsersContainer"));
+const NewsContainer = React.lazy(() => import("./News/NewsContainer"))
 
 function App() {
 
@@ -20,7 +23,7 @@ function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initializeApp())
-    }, [dispatch])
+    }, [])
 
     if (!initilized) {
         return <Preloader/>
@@ -28,12 +31,12 @@ function App() {
 
     return <div className="app-wrapper">
         <HeaderContainer/>
-        <Navbar/>
+        <NavbarContainer/>
         <div className="app-wrapper-content">
-            <Route path={"/users"} render={() => <UsersContainer/>}/>
+            <Route path={"/users"} render={withSuspense(UsersContainer)}/>
             <Route path={"/dialogs"} render={() => <DialogsContainer/>}/>
             <Route path={"/profile/:userId?"} render={() => <ProfileContainer />}/>
-            <Route path={"/news"} render={() => <NewsContainer/>}/>
+            <Route path={"/news"} render={withSuspense(NewsContainer)}/>
             <Route path={"/login"} render={() => <Login/>}/>
             <Route exact path={"/"} render={() => <Redirect to="/users"/>}/>
         </div>

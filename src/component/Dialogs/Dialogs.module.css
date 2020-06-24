@@ -1,4 +1,83 @@
 .messages{
+    height: 70vh;
+    overflow: auto;
     display: flex;
-  flex-direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0,0,0, .3);
+    border-radius: 5px;
+    padding: 0.3rem;
+    margin: 0.6rem;
+
+}
+
+.messageWrapper {
+    margin-bottom: 0.5rem;
+}
+
+.userMessage{
+    display: flex;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+
+
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.messageBody{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+
+    border-radius: 5px;
+}
+.messageBodySender{
+    background-color: rgba(192, 219, 235, 1);
+}
+.messageBodyReceip{
+    background-color: rgba(198, 245, 231, 1);
+}
+
+.messageAttributs{
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 5px;
+    align-items: flex-start;
+    margin-left: 0.5rem;
+}
+.date, .hour {
+    white-space: nowrap;
+    font-size: 0.7rem;
+}
+.date {
+    margin-right: 5px;
+}
+.deleteMessage{
+    align-items: flex-start ;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.searchName{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.spamMessage{
+    opacity: 0.2;
+}
+
+.dialogs{
+    height: 75vh;
+    overflow-y: auto;
 }

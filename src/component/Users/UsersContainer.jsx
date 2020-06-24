@@ -5,16 +5,23 @@ import {follow, requestUsers, searchUser, setUserPageSize, unfollow} from "../..
 import Preloader from "../common/Preloader";
 import {startChatting} from "../../redux/dialogs-reducer";
 import {withRouter} from "react-router-dom";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching, getOptionsForUsers,
+    getPageSize,
+    getTotalItemsCount,
+    getUsersSuperSelector
+} from "../../redux/users-selectors";
 
 
 const UsersContainer = () => {
-    const users = useSelector(state => state.usersPage.users)
-    const totalItemsCount = useSelector(state => state.usersPage.totalUsersCount)
-    const currentPage = useSelector(state => state.usersPage.currentPage)
-    const pageSize = useSelector(state => state.usersPage.pageSize)
-    const isFetching = useSelector(state => state.usersPage.isFetching)
-    const followingInProgress = useSelector(state => state.usersPage.followingInProgress)
-    const optionsForUsers = useSelector(state => state.usersPage.optionsForUsers)
+    const users = useSelector(state => getUsersSuperSelector(state))
+    const totalItemsCount = useSelector(state => getTotalItemsCount(state))
+    const currentPage = useSelector(state => getCurrentPage(state))
+    const pageSize = useSelector(state => getPageSize(state))
+    const isFetching = useSelector(state => getIsFetching(state))
+    const followingInProgress = useSelector(state => getFollowingInProgress(state))
+    const optionsForUsers = useSelector(state => getOptionsForUsers(state))
     const dispatch = useDispatch();
 
     useEffect(() => {

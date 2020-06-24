@@ -40,7 +40,7 @@ const usersReducer = (state = initialState, action) => {
             }
         case SET_FRIENDS:
             return {
-                ...state, ...state.friends.push(...action.users.filter(user => user.followed))
+                ...state,friends: [...state.friends,...action.users.filter(user => user.followed)]
             }
 
         case TOGGLE_IS_FETCHING:
@@ -66,13 +66,19 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map( user => {
-                    if (user.id === action.userId){
-                       return {...user,followed:true}
+                users: state.users.map(user => {
+                    if (user.id === action.userId) {
+                        return {...user, followed: true}
+                    }
+
+                    return user
+                }),
+                friends: [...state.users.map(user => {
+                    if (user.id === action.userId) {
+                        return {...user, followed: true}
                     }
                     return user
-                })
-
+                }).filter(user => user.followed)]
             }
         case UNFOLLOW:
             return {
@@ -82,7 +88,13 @@ const usersReducer = (state = initialState, action) => {
                         return {...user,followed:false}
                     }
                     return user
-                })
+                }),
+                friends: [...state.users.map(user => {
+                    if (user.id === action.userId) {
+                        return {...user, followed: false}
+                    }
+                    return user
+                }).filter(user => user.followed)]
             }
         case SET_USER_PAGE_SIZE:
             return {
@@ -112,7 +124,7 @@ export const requestUsers = (currentPage, pageSize,searchedUser=null) => async (
     dispatch(setCurrentPage(currentPage))
     const response = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
     dispatch(setUsers(response.data.items))
-    dispatch(setFriends(response.data.items))
+    //dispatch(setFriends(response.data.items))
     dispatch(toggleIsFetching(false))
     dispatch(setTotalUsersCount(response.data.totalCount))
 }

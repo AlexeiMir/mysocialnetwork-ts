@@ -50,7 +50,22 @@ export const dialogsAPI = {
     //send message to your friend
     sendMessageToFriend(body,userId){
         return instance.post(`dialogs/${userId}/messages`, {body})
+    },
+    //delete only for you, not for your companion
+    deleteMessageForYou(messageId){
+        return instance.delete(`dialogs/messages/${messageId}`)
+    },
+    //list of new messages
+    getListNewMessagesCount(){
+        return instance.get(`dialogs/messages/new/count`)
+    },
+    messageToSpam(messageId){
+        return instance.post(`dialogs/messages/${messageId}/spam`)
+    },
+    restoreMessage(messageId){
+        return instance.put(`dialogs/messages/${messageId}/restore`)
     }
+
 }
 
 export const authAPI ={

@@ -5,6 +5,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "../Dialogs/Dialogs.module.css"
 import AddMessageFormRedux from "./Message/AddMessageForm"
+import Search from "../../utils/Search/Search";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,12 +18,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dialogs = ({dialogs, messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
-                     myId,myPhoto,login}) => {
+const Dialogs = ({
+                     dialogs, messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
+                     myId, myPhoto, login,handleDeleteMessage,newMessagesCount,localDialogs,handleSearchDialog,
+                     handleMessageSpam,spam
+                 }) => {
 
 
     const classes = useStyles();
-
 
 
     const onSubmit = (values) => {
@@ -35,19 +38,39 @@ const Dialogs = ({dialogs, messages, getAllMessagesUser, getNewUserProfile, hand
 
     }
 
+
+
     return <>
         <Grid container spacing={3}>
             <Grid item xs={4}>
-                {dialogs.length ? dialogs.map(dialog => <DialogItem key={dialog.id} dialog={dialog}
+                <div className={s.searchName}>
+                    <Search handleSearch={handleSearchDialog}/>
+                </div>
+                <div className={s.dialogs}>
+                {localDialogs.length ? localDialogs.map(dialog => <DialogItem key={dialog.id} dialog={dialog}
                                                                     profile={userProfile}
-                                                                    handleListMessages={handleListMessages}/>)
+                                                                    handleListMessages={handleListMessages}
+
+
+                    />)
                     : null}
+                </div>
             </Grid>
-            <Grid item xs={8} className={s.messages}>
-                {messages.length ? messages.map(message => <Message key={message.id} message={message}
-                                                                    myId={myId} myPhoto={myPhoto}
-                                                                    login={login} userProfile={userProfile}/>) : null}
-                <AddMessageFormRedux onSubmit={onSubmit}/>
+            <Grid item xs={8}>
+                <div className={s.messages}>
+                    {messages.length ? messages.map(message => <Message key={message.id} message={message}
+                                                                        myId={myId} myPhoto={myPhoto}
+                                                                        login={login}
+                                                                        userProfile={userProfile}
+                                                                        handleDeleteMessage={handleDeleteMessage}
+                                                                        newMessagesCount={newMessagesCount}
+                                                                        handleMessageSpam={handleMessageSpam}
+                                                                        spam={spam}
+                    />) : null}
+                </div>
+                <div className={s.dialogForm}>
+                    <AddMessageFormRedux onSubmit={onSubmit}/>
+                </div>
             </Grid>
         </Grid>
     </>

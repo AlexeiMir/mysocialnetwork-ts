@@ -76,6 +76,7 @@ export const getNews = (pageSize, page) => async (dispatch) => {
         dispatch(setMessageError(null))
         dispatch(toggleIsLoading(false))
     } catch(error) {
+        debugger
         dispatch(setMessageError(error.response.data.message))
     }
 }
