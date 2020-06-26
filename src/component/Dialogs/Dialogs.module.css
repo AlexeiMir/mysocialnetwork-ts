@@ -81,3 +81,15 @@
     height: 75vh;
     overflow-y: auto;
 }
+
+.spamMessages{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4rem ;
+    margin-left: 4rem;
+}
+
+.withoutSpam{
+    margin-top: 4rem ;
+    margin-left: 6rem;
+}

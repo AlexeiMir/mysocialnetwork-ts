@@ -7,6 +7,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Badge from '@material-ui/core/Badge';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Tooltip from "@material-ui/core/Tooltip";
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import CheckIcon from '@material-ui/icons/Check';
 
 const Message = ({message, myId, myPhoto, login, userProfile,handleDeleteMessage,newMessagesCount,
                      handleMessageSpam,spam}) => {
@@ -15,7 +17,7 @@ const Message = ({message, myId, myPhoto, login, userProfile,handleDeleteMessage
             <div className={s.userMessage + ' ' + (message.senderId === myId ? s.myUserMessage : '')}>
                 <div className={s.userInfo}>
                     <div className={s.messageAvatar}>
-                        <Badge badgeContent={message.senderId === myId ? '' :newMessagesCount} color="primary">
+                        <Badge badgeContent={message.senderId === myId ? newMessagesCount :''} color="primary">
                         <Avatar src={message.senderId === myId ? myPhoto.small : userProfile.photos.small}/>
                         </Badge>
                     </div>
@@ -26,9 +28,15 @@ const Message = ({message, myId, myPhoto, login, userProfile,handleDeleteMessage
                     </div>
                 </div>
                 <div className={s.messageBody + ' ' + (message.senderId === myId ? s.messageBodySender : s.messageBodyReceip)}>
-                    <div className={s.messageText}>
-                        {message.body}
+                    <div className={s.messageViewed}>
+                        {message.viewed
+                        ? <DoneAllIcon color="primary"/>
+                        : <CheckIcon color="primary"/>
+                        }
                     </div>
+                    <div className={s.messageText}>
+
+                    </div>  {message.body}
                     <div className={s.messageAttributs}>
                         <div className={s.date}>
                             {`${message.addedAt.slice(8, 10)}.${message.addedAt.slice(5, 7)}.${message.addedAt.slice(0, 4)}`}

@@ -1,22 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Grid from '@material-ui/core/Grid';
-import {makeStyles} from '@material-ui/core/styles';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "../Dialogs/Dialogs.module.css"
 import AddMessageFormRedux from "./Message/AddMessageForm"
 import Search from "../../utils/Search/Search";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-}));
+
 
 const Dialogs = ({
                      dialogs, messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
@@ -25,7 +15,7 @@ const Dialogs = ({
                  }) => {
 
 
-    const classes = useStyles();
+
 
 
     const onSubmit = (values) => {

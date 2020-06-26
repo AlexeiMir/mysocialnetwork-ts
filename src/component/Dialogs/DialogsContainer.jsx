@@ -7,6 +7,7 @@ import {getProfile} from "../../redux/profile-reducer"
 import {compose} from "redux";
 import {getMyPhoto} from "../../redux/auth-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { reset } from "redux-form";
 
 
 const DialogsContainer = () => {
@@ -39,7 +40,10 @@ const DialogsContainer = () => {
     },[dialogs])
 
     const getAllMessagesUser = (userId) => dispatch(getListMessages(userId))
-    const handleSendMessage = (message,userId) => dispatch(sendMessage(message,userId))
+    const handleSendMessage = (message,userId) => {
+           dispatch(sendMessage(message,userId))
+            dispatch(reset("send-message"))
+       }
     const getNewUserProfile = (userId) => dispatch(getProfile(userId))
     const handleDeleteMessage = (messageId,userId) => dispatch(deleteMessage(messageId,userId))
     const handleMessageSpam = (messageId,userId) => dispatch(messageToSpamTC(messageId,userId))

@@ -55,7 +55,7 @@ const dialogsReducer = (state=initialState,action) => {
             }
         case SET_MESSAGE_TO_SPAM:
             return {
-                ...state,spam:[...state.spam,payload]
+                ...state,spam:[...state.spam,...state.messages.filter(message =>message.id === payload)]
             }
         case RESTORE_MESSAGE_SPAM:
             return {
@@ -147,14 +147,16 @@ export const messageToSpamTC = (messageId,userId) => async(dispatch) => {
 const response = await dialogsAPI.messageToSpam(messageId)
     if (response.data.resultCode === 0) {
         dispatch(setMessageToSpam(messageId))
+        dispatch(getListMessages(userId))
     }
 
 }
 
-export const restoreMessageFromSpam = (messageId) => async(dispatch) => {
+export const restoreMessageFromSpam = (messageId,userId) => async(dispatch) => {
     const response = await dialogsAPI.restoreMessage(messageId)
     if (response.data.resultCode === 0) {
         dispatch(restoreMessageSpam(messageId))
+        dispatch(getListMessages(userId))
     }
 
 }

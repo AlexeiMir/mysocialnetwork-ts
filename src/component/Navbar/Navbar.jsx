@@ -71,7 +71,8 @@ const Navbar = ({friends,isAuth}) => {
                     <ListItem button>
                         <ListItemText primary="Trash" />
                     </ListItem>
-                    <ListItem component="nav" aria-label="secondary mailbox folders">
+                    <ListItem className={s.itemText} component={NavLink} exact to="/spam" selected={selectedIndex === 4}
+                              onClick={(event) => handleListItemClick(event, 4)}>
                         <ListItemText primary="Spam" />
                     </ListItem>
                 </List>

@@ -38,10 +38,6 @@ const usersReducer = (state = initialState, action) => {
                 ...state, users: payload,
 
             }
-        case SET_FRIENDS:
-            return {
-                ...state,friends: [...state.friends,...action.users.filter(user => user.followed)]
-            }
 
         case TOGGLE_IS_FETCHING:
             return {
@@ -108,7 +104,7 @@ const usersReducer = (state = initialState, action) => {
 }
 
 const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
-const setFriends = (users) => ({type:SET_FRIENDS,users})
+
 const setUsers = (payload) => ({type: SET_USERS, payload})
 const setCurrentPage = (payload) => ({type:SET_CURRENT_PAGE, payload})
 const setTotalUsersCount = (payload) => ({type:SET_TOTAL_USERS_COUNT,payload})
