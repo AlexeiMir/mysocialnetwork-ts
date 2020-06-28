@@ -2,7 +2,7 @@
   "name": "my-social-network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alexeimir.github.io/my-social-network/",
+  "homepage": "https://alexeimir.github.io/my-social-network",
   "dependencies": {
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
