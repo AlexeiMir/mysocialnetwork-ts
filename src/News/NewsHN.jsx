@@ -39,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: red[500],
+        width: theme.spacing(7),
+        height: theme.spacing(7)
     },
 }));
 
@@ -77,25 +79,31 @@ const NewsHN = ({
                         }
                         title={article.title}
                         subheader={`${article.created_at.slice(8, 10)}.${article.created_at.slice(5, 7)}
-                .${article.created_at.slice(0, 4)} - ${article.created_at.slice(11, 13)}.${article.publishedAt.slice(14, 16)}`}
+                .${article.created_at.slice(0, 4)} - ${article.created_at.slice(11, 13)}.${article.created_at.slice(14, 16)}`}
                     />
-                    <CardMedia
+                    {/*<CardMedia
                         className={classes.media}
                    
                         title={article.author}
-                    />
+                    />*/}
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {article.story_text}
+                            {article.story_text ? article.story_text : "Нет статьи"}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                           ({article.url ? article.url : "Нет линка"})
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {article.num_comments ? article.num_comments : "No"} comments
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton
                             className={clsx(classes.expand, {
-                                [classes.expandOpen && newsId === article.source.id]: expanded,
+                                [classes.expandOpen && newsId === article.objectID]: expanded,
                             })}
                             onClick={() => {
-                                setNewsId(article.source.id)
+                                setNewsId(article.objectID)
                                 setExpanded(!expanded);
                             }}
                             aria-expanded={expanded}
