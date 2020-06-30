@@ -70,9 +70,9 @@ export const getNews = (pageSize, page) => async (dispatch) => {
         dispatch(toggleIsLoading(true))
         const response = await newsAPI.getNews(pageSize, page)
 
-        dispatch(setNewsData(response.data.articles))
+        dispatch(setNewsData(response.data.hits))
 
-        dispatch(setTotalResults(response.data.totalResults))
+        dispatch(setTotalResults(response.data.nbHits))
         dispatch(setMessageError(null))
         dispatch(toggleIsLoading(false))
     } catch(error) {
@@ -84,7 +84,7 @@ export const getNews = (pageSize, page) => async (dispatch) => {
 export const searchNews = (pageSize,searchValue) => async(dispatch) => {
 try {
     const response = await newsAPI.searchNews(pageSize,searchValue)
-    dispatch(setNewsData(response.data.articles))
+    dispatch(setNewsData(response.hits))
     dispatch(setMessageError(null))
 } catch (error) {
     dispatch(setMessageError(error.response.data.message))

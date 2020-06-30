@@ -17,7 +17,7 @@ export const newsAPI = {
     searchNews(pageSize,searchValue){
        /* return axios.get(`https://newsapi.org/v2/top-headlines?pageSize=${pageSize}&q=${searchValue}
         &apiKey=093a56ef92584facb242b343607a0bad`)*/
-       return axios.get(``)
+       return axios.get(`http://hn.algolia.com/api/v1/search?query=${searchValue}&hitsPerPage=${pageSize}`)
     }
 
 }
