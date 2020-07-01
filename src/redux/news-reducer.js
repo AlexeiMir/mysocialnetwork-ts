@@ -66,30 +66,31 @@ const setMessageError = (payload) => ({type:SET_MESSAGE_ERROR,payload})
 
 
 export const getNews = (pageSize, page) => async (dispatch) => {
-
+try{
         dispatch(toggleIsLoading(true))
         const response = await newsAPI.getNews(pageSize, page)
 
-        dispatch(setNewsData(response.data.hits))
+        dispatch(setNewsData(response.data.articles))
         dispatch(setPageNewsNumber(page))
-        dispatch(setTotalResults(response.data.nbPages))
+        dispatch(setTotalResults(response.data.totalResults))
         dispatch(setMessageError(null))
         dispatch(toggleIsLoading(false))
-    /* catch(error) {
+}
+     catch(error) {
 
         dispatch(setMessageError(error.response.data.message))
-    }*/
+    }
 }
 
 export const searchNews = (pageSize,searchValue) => async(dispatch) => {
-
+try{
     const response = await newsAPI.searchNews(pageSize,searchValue)
-    dispatch(setNewsData(response.data.hits))
+    dispatch(setNewsData(response.data.articles))
     dispatch(setMessageError(null))
-
-/*catch (error) {
+}
+catch (error) {
     dispatch(setMessageError(error.response.data.message))
-}*/
+}
 }
 
 export default newsReducer

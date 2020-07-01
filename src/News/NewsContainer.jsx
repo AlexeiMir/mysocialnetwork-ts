@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import NewsHN from "./NewsHN";
+import News from "./News";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../component/common/Preloader";
 import {getNews, searchNews, setPageNewsNumber, setPageSize} from "../redux/news-reducer";
@@ -36,7 +36,7 @@ const NewsContainer = () => {
 
     return<>
         {isLoading ? <Preloader/> : null}
-        <NewsHN totalResults={totalResults}
+        <News totalResults={totalResults}
               articles={articles}
               pageSize={pageSize}
               currentPage={currentPage}
