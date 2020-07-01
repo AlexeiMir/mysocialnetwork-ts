@@ -51,11 +51,11 @@ const AppContainer = () => {
 
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppSocial/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
         
     )
 
