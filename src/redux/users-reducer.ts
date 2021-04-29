@@ -94,7 +94,7 @@ const usersReducer = (state = initialState, action:ActionsTypes):InitialState =>
             return state
     }
 }
-
+//actions
 const actions = {
     toggleIsFetching : (isFetching:boolean) => ({type: "SN/USERS/TOGGLE_IS_FETCHING", isFetching} as const),
     setUsers : (users: Array<UserType>) => ({type: "SN/USERS/SET_USERS", users} as const),
