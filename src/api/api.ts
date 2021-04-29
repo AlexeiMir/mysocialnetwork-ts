@@ -1,4 +1,4 @@
-import * as axios from 'axios'
+import axios from 'axios'
 
 const instance = axios.create({
     withCredentials:true,
@@ -23,7 +23,7 @@ export const newsAPI = {
 }
 
 export const usersAPI = {
-    getUsers(currentPage,pageSize){
+    getUsers(currentPage,pageSize,searchedUser){
         return instance.get(`users/?page=${currentPage}&count=${pageSize}`)
     },
     searchUser(userName){
@@ -76,13 +76,46 @@ export const dialogsAPI = {
     }
 
 }
+export enum ResultCodesEnum {
+    Success=0,
+    Error=1
+}
+
+export enum ResultCodeForCapctha {
+    CaptchaIsRequired = 10
+}
+
+type MeResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+export type APIResponseType<D={},RC=ResultCodesEnum> = {
+    data: D,
+    messages: Array<string>,
+    resultCode: RC
+}
+
+type LoginResponseType = {
+    resultCode: ResultCodesEnum | ResultCodeForCapctha
+    messages: Array<string>
+    data: {
+        userId: number
+    }
+}
 
 export const authAPI ={
     me(){
-        return instance.get('auth/me')
+        return instance.get<MeResponseType>('auth/me').then(res => res.data)
     },
     login(email,password,rememberMe,captcha=null){
-        return instance.post('auth/login',{email,password,rememberMe,captcha})
+        return instance.post<LoginResponseType>('auth/login',{email,password,rememberMe,captcha})
+            .then(res => res.data)
     },
     logout(){
         return instance.delete('auth/login')
