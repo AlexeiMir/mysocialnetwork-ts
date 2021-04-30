@@ -22,12 +22,11 @@ const initialState = {
 }
 
 const usersReducer = (state = initialState, action:ActionsTypes):InitialState => {
-    const {payload} = action
     switch (action.type) {
         case "SN/SET_SEARCHED_USER":
         case "SN/USERS/SET_USERS":
             return {
-                ...state, users: payload,
+                ...state, users: action.users,
 
             }
 
@@ -37,11 +36,11 @@ const usersReducer = (state = initialState, action:ActionsTypes):InitialState =>
             }
         case "SN/USERS/SET_CURRENT_PAGE":
             return {
-                ...state,currentPage:payload
+                ...state,currentPage:action.currentPage
             }
         case "SN/USERS/SET_TOTAL_USERS_COUNT":
             return {
-                ...state,totalUsersCount:payload
+                ...state,totalUsersCount:action.totalUsersCount
             }
         case "SN/USERS/TOGGLE_FOLLOWING_IN_PROGRESS":
             return {
@@ -87,7 +86,7 @@ const usersReducer = (state = initialState, action:ActionsTypes):InitialState =>
         case "SN/USERS/SET_USER_PAGE_SIZE":
             return {
                 ...state,
-                pageSize:payload
+                pageSize:action.payload
             }
 
         default:
@@ -101,10 +100,10 @@ const actions = {
     setCurrentPage : (currentPage: number) => ({type:"SN/USERS/SET_CURRENT_PAGE", currentPage} as const),
     setTotalUsersCount : (totalUsersCount: number) => ({type:"SN/USERS/SET_TOTAL_USERS_COUNT",totalUsersCount} as const),
     toggleFollowingInProgress : (isFetching: boolean, userId: number) => ({type:"SN/USERS/TOGGLE_FOLLOWING_IN_PROGRESS",isFetching,userId} as const),
-    followSuccess : (userId) => ({type:"SN/USERS/FOLLOW",userId} as const),
-    unFollowSuccess : (userId) => ({type:"SN/USERS/UNFOLLOW",userId} as const),
-    setSearchedUser : (payload) => ({type:"SN/SET_SEARCHED_USER",payload} as const),
-    setUserPageSize : (payload) => ({type:"SN/USERS/SET_USER_PAGE_SIZE",payload} as const)
+    followSuccess : (userId: number) => ({type:"SN/USERS/FOLLOW",userId} as const),
+    unFollowSuccess : (userId: number) => ({type:"SN/USERS/UNFOLLOW",userId} as const),
+    setSearchedUser : (users: Array<UserType>) => ({type:"SN/SET_SEARCHED_USER",users} as const),
+    setUserPageSize : (payload:any) => ({type:"SN/USERS/SET_USER_PAGE_SIZE",payload} as const)
 }
 
 
