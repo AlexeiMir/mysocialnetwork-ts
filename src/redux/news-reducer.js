@@ -1,4 +1,4 @@
-import {newsAPI} from "../api/api";
+import {newsAPI} from "../api/news-api";
 
 const TOGGLE_IS_LOADING = "news/TOGGLE_IS_LOADING"
 const SET_NEWS_DATA = "news/SET_NEWS_DATA"

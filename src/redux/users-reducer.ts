@@ -1,7 +1,8 @@
-import {usersAPI, APIResponseType} from "../api/api";
+import {APIResponseType} from "../api/api";
 import {UserType} from '../types/types'
 import {Action, Dispatch} from "redux";
 import {AppStateType, InferActionsTypes, BaseThunkType} from "./redux-store";
+import {usersAPI} from "../api/users-api";
 
 
 const initialState = {
@@ -112,10 +113,10 @@ export const requestUsers = (currentPage, pageSize,searchedUser=null):ThunkType 
     dispatch(actions.toggleIsFetching(true))
     dispatch(actions.setCurrentPage(currentPage))
     const response = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
-    dispatch(actions.setUsers(response.data.items))
+    dispatch(actions.setUsers(response.items))
     //dispatch(setFriends(response.data.items))
     dispatch(actions.toggleIsFetching(false))
-    dispatch(actions.setTotalUsersCount(response.data.totalCount))
+    dispatch(actions.setTotalUsersCount(response.totalCount))
 }
 
 export const searchUser = (userName):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {

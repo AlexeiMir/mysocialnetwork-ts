@@ -1,6 +1,8 @@
-import {authAPI, profileAPI} from "../api/api";
 import {ResultCodeForCapctha, ResultCodesEnum} from '../api/api'
 import {InferActionsTypes, BaseThunkType} from './redux-store'
+import {PhotosType} from '../types/types'
+import {profileAPI} from "../api/profile-api";
+import {authAPI} from "../api/auth-api";
 
 
 const initialState = {
@@ -10,7 +12,7 @@ const initialState = {
     userId:null as number |null,
     login:null as string |null,
     captchaUrl:null as string |null,
-    myPhoto:null as string |null
+    myPhoto:null as PhotosType |null
 
 }
 
@@ -20,7 +22,7 @@ const authReducer = (state=initialState, action:ActionsTypes): InitialStateType 
         case "SN/auth/SET_AUTH_USER_DATA":
         case "SN/auth/SET_CAPTCHA_URL":
         case  "SN/auth/SET_MY_PHOTO":
-            return{
+            return {
                 ...state,...payload
             }
 
@@ -30,9 +32,10 @@ const authReducer = (state=initialState, action:ActionsTypes): InitialStateType 
     }
 }
 const actions = {
-    setAuthUserData : (userId: number,email: string,login: string,isAuth: boolean) => ({type:"SN/auth/SET_AUTH_USER_DATA",payload:{userId,email,login,isAuth}} as const),
-    setCaptchaUrl : (captchaUrl) => ({type:"SN/auth/SET_CAPTCHA_URL",payload:{captchaUrl}} as const),
-    setMyPhoto : (myPhoto) => ({type:"SN/auth/SET_MY_PHOTO",payload:{myPhoto}})
+    setAuthUserData : (userId: number | null,email: string | null,login: string | null,isAuth: boolean) => ({
+        type:"SN/auth/SET_AUTH_USER_DATA",payload:{userId,email,login,isAuth}} as const),
+    setCaptchaUrl : (captchaUrl:string) => ({type:"SN/auth/SET_CAPTCHA_URL",payload:{captchaUrl}} as const),
+    setMyPhoto : (myPhoto:PhotosType) => ({type:"SN/auth/SET_MY_PHOTO",payload:{myPhoto}} as const)
 }
 
 
@@ -45,7 +48,7 @@ export const getAuthUserData = ():ThunkType => async(dispatch) => {
 
 }
 
-export const getMyPhoto = (userId):ThunkType => async(dispatch) => {
+export const getMyPhoto = (userId:number):ThunkType => async(dispatch) => {
     const response = await profileAPI.getProfile(userId)
     dispatch(actions.setMyPhoto(response.data.photos))
 }
