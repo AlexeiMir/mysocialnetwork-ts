@@ -6,7 +6,7 @@ import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "./redux/redux-store";
 import DialogsContainer from "./component/Dialogs/DialogsContainer";
 import Login from "./component/Login/LoginContainer";
-import HeaderContainer from "./component/Header/HeaderContainer";
+import Header from "./component/Header/Header";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./component/common/Preloader";
 import ProfileContainer from "./component/Profile/ProfileContainer";
@@ -30,7 +30,7 @@ function App() {
     }
 
     return <div className="app-wrapper">
-        <HeaderContainer/>
+        <Header/>
         <NavbarContainer/>
         <div className="app-wrapper-content">
             <Route path={"/users"} render={withSuspense(UsersContainer)}/>

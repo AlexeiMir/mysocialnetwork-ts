@@ -112,17 +112,17 @@ export const requestUsers = (currentPage, pageSize,searchedUser=null):ThunkType 
     async (dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetching(true))
     dispatch(actions.setCurrentPage(currentPage))
-    const response = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
-    dispatch(actions.setUsers(response.items))
+    const data = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
+    dispatch(actions.setUsers(data.items))
     //dispatch(setFriends(response.data.items))
     dispatch(actions.toggleIsFetching(false))
-    dispatch(actions.setTotalUsersCount(response.totalCount))
+    dispatch(actions.setTotalUsersCount(data.totalCount)
 }
 
 export const searchUser = (userName):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
 
-const response = await usersAPI.searchUser(userName)
-    dispatch(actions.setSearchedUser(response.data.items))
+const data = await usersAPI.searchUser(userName)
+    dispatch(actions.setSearchedUser(data.items))
 
 }
 
@@ -132,8 +132,8 @@ const _followUnfollowFlow =  async(dispatch:Dispatch<ActionsTypes>,
                                    actionCreator: (userId:number) => ActionsTypes
 ) => {
     dispatch(actions.toggleFollowingInProgress(true,userId))
-    let response = await apiMethod(userId)
-    if (response.resultCode == 0){
+    let data = await apiMethod(userId)
+    if (data.resultCode == 0){
         dispatch(actionCreator(userId))
         dispatch(actions.toggleFollowingInProgress(false,userId))
     }

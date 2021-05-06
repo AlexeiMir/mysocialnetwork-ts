@@ -64,37 +64,37 @@ const actions = {
 
 
 export const getProfile = (userId:number):ThunkType => async (dispatch) => {
-    const response = await profileAPI.getProfile(userId)
-    dispatch(actions.setUserProfile(response.data))
+    const data = await profileAPI.getProfile(userId)
+    dispatch(actions.setUserProfile(data))
 
 }
 
 export const getStatus = (userId:number):ThunkType => async (dispatch) => {
-    const response = await profileAPI.getStatus(userId)
-    dispatch(actions.setStatus(response.data))
+    const data = await profileAPI.getStatus(userId)
+    dispatch(actions.setStatus(data))
 }
 
 export const updateStatus = (status:string):ThunkType => async (dispatch) => {
-    const response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+    const data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
         dispatch(actions.setStatus(status))
     }
 }
 
 export const updatePhoto = (file:File):ThunkType => async (dispatch) => {
-    const response = await profileAPI.updatePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(actions.setPhoto(response.data.data.photos))
+    const data = await profileAPI.updatePhoto(file)
+    if (data.resultCode === 0) {
+        dispatch(actions.setPhoto(data.data.photos))
     }
 }
 
 export const updateProfile = (profile:ProfileType):ThunkType => async (dispatch,getState) => {
     const userId = getState().authPage.userId
-    const response = await profileAPI.updateProfile(profile)
-    if (response.data.resultCode === 0) {
+    const data = await profileAPI.updateProfile(profile)
+    if (data.resultCode === 0) {
         dispatch(getProfile(userId))
-    } else { dispatch(stopSubmit('edite-profile',{_error:response.data.messages[0]}))
-        return Promise.reject(response.data.messages[0])
+    } else { dispatch(stopSubmit('edite-profile',{_error:data.messages[0]}))
+        return Promise.reject(data.messages[0])
     }
 }
 

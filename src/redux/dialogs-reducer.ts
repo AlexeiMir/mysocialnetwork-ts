@@ -74,11 +74,11 @@ const actions = {
 
 export const getAllDialogs = ():ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetchingDialogs(true))
-    const response1 = await dialogsAPI.getAllDialogs()
-    const response2 = await dialogsAPI.getListNewMessagesCount()
-    Promise.all([response1,response2]).then(() => {
-        dispatch(actions.setNewMessagesCount(response2.data))
-        dispatch(actions.setDialogs(response1.data))
+    const data1 = await dialogsAPI.getAllDialogs()
+    const data2 = await dialogsAPI.getListNewMessagesCount()
+    Promise.all([data1,data2]).then(() => {
+        dispatch(actions.setNewMessagesCount(data2))
+        dispatch(actions.setDialogs(data1))
         dispatch(actions.toggleIsFetchingDialogs(false))
     })
 
@@ -89,8 +89,8 @@ export const getAllDialogs = ():ThunkType => async(dispatch:Dispatch<ActionsType
 export const startChatting = (userId):ThunkType => {
     return async(dispatch) => {
         dispatch(actions.toggleIsFetchingDialogs(true))
-const response = await dialogsAPI.startChatting(userId)
-        if (response.resultCode == 0) {
+const data = await dialogsAPI.startChatting(userId)
+        if (data.resultCode == 0) {
             dispatch(getAllDialogs())
             dispatch(actions.setActiveUserId(userId))
         }
@@ -101,8 +101,8 @@ const response = await dialogsAPI.startChatting(userId)
 
 export const getListMessages = (userId):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetchingDialogs(true))
-    const response = await dialogsAPI.getListsMessages(userId)
-    dispatch(actions.setDialogMessages(response.data.items))
+    const data = await dialogsAPI.getListsMessages(userId)
+    dispatch(actions.setDialogMessages(data.items))
     dispatch(actions.toggleIsFetchingDialogs(false))
 
 
@@ -111,10 +111,10 @@ export const getListMessages = (userId):ThunkType => async(dispatch:Dispatch<Act
 export const sendMessage = (message,userId):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     
     dispatch(actions.toggleIsFetchingDialogs(true))
-    const response = await dialogsAPI.sendMessageToFriend(message,userId)
-    if (response.data.resultCode === 0) {
+    const data = await dialogsAPI.sendMessageToFriend(message,userId)
+    if (data.resultCode === 0) {
 
-        dispatch(actions.setMessage(response.data.data.message))
+        dispatch(actions.setMessage(data.data.message))
     }
     dispatch(actions.toggleIsFetchingDialogs(false))
 
