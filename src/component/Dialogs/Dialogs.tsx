@@ -48,9 +48,10 @@ const Dialogs = ({
             </Grid>
             <Grid item xs={8}>
                 <div className={s.messages}>
-                    {messages.length ? messages.map(message => <Message key={message.id} message={message}
-                                                                        myId={myId} myPhoto={myPhoto}
-                                                                        login={login}
+                    {messages.length ? messages.map(message => <Message key={message.id}
+                                                                        message={message}
+                                                                        myId={myId}
+                                                                        myPhoto={myPhoto}
                                                                         userProfile={userProfile}
                                                                         handleDeleteMessage={handleDeleteMessage}
                                                                         newMessagesCount={newMessagesCount}

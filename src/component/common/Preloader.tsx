@@ -11,7 +11,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Preloader = () => {
+type PropsType = {
+
+}
+
+const Preloader:React.FC<PropsType> = () => {
     const classes = useStyles();
     return(
         <div className={classes.root}>

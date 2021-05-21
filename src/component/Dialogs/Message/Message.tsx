@@ -9,8 +9,22 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Tooltip from "@material-ui/core/Tooltip";
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import CheckIcon from '@material-ui/icons/Check';
+import {PhotosType, ProfileType, MessageType} from '../../../types/types'
 
-const Message = ({message, myId, myPhoto, login, userProfile,handleDeleteMessage,newMessagesCount,
+export type handleMessageType = (messageId:number,profileId:number) => void
+
+type MessageTypeProps = {
+    message:MessageType
+    myId: number
+    myPhoto: PhotosType
+    userProfile: ProfileType
+    handleDeleteMessage: handleMessageType
+    newMessagesCount: number
+    handleMessageSpam: handleMessageType
+    spam: Array<MessageType>
+}
+
+const Message:React.FC<MessageTypeProps> = ({message, myId, myPhoto, userProfile,handleDeleteMessage,newMessagesCount,
                      handleMessageSpam,spam}) => {
     return <>
         <div className={s.messageWrapper + ' '+ (spam.filter(sp => sp.id === message.id).length === 0) ? '': s.spamMessage}>

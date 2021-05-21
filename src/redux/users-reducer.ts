@@ -116,7 +116,7 @@ export const requestUsers = (currentPage, pageSize,searchedUser=null):ThunkType 
     dispatch(actions.setUsers(data.items))
     //dispatch(setFriends(response.data.items))
     dispatch(actions.toggleIsFetching(false))
-    dispatch(actions.setTotalUsersCount(data.totalCount)
+    dispatch(actions.setTotalUsersCount(data.totalCount))
 }
 
 export const searchUser = (userName):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
