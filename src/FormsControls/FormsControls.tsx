@@ -3,13 +3,12 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import {Field, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
-;
+import { WithStyles, createStyles } from '@material-ui/core';
 
-type FormsControlPropsType = {
-    meta: WrappedFieldMetaProps
-}
 
-export const Textarea = (props) => {
+
+
+export const Textarea: React.FC<WrappedFieldMetaProps> = (props) => {
     const {touched, invalid, error, input, ...restProps} = props
     const {multiline, rows, fullWidth, name, placeholder,label, custom} = restProps
     return <TextField
@@ -27,7 +26,7 @@ export const Textarea = (props) => {
     />
 }
 
-export const CheckboxInput = (props) => {
+export const CheckboxInput: React.FC<WrappedFieldProps> = (props) => {
     const {input,label, ...restProps} = props
    return <div>
     < FormControlLabel

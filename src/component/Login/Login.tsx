@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom'
 import {validate} from "../../utils/validators/validators"
 import Button from "@material-ui/core/Button";
 import s from "./Login.module.css"
-import {createField, Textarea, CheckboxInput, GetStringKeys, GetStringKeys} from "../../FormsControls/FormsControls";
+import {createField, Textarea, CheckboxInput, GetStringKeys} from "../../FormsControls/FormsControls";
 import {makeStyles} from '@material-ui/core/styles';
 import {selectCaptchaUrl, selectIsAuth} from "../../redux/auth-selectors";
 import {login} from "../../redux/auth-reducer";
@@ -94,7 +94,7 @@ export const Login: React.FC = () => {
 
     if (isAuth) { return <Redirect to={"/profile"} /> }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData:LoginFormValuesType) => {
 
         dispatch(login(formData.email, formData.password, formData.rememberMe,formData.captcha))
     }

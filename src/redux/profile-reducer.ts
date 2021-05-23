@@ -1,4 +1,4 @@
-import {stopSubmit} from "redux-form";
+import {stopSubmit, FormAction} from "redux-form";
 import {InferActionsTypes, BaseThunkType} from "./redux-store";
 import {ProfileType, PostType, PhotosType} from '../types/types'
 import {profileAPI} from "../api/profile-api";
@@ -53,7 +53,7 @@ const profileReducer = (state = initialState, action:ActionsType):InitialState =
 
 }
 
-const actions = {
+export const actions = {
     setUserProfile : (profile: ProfileType) => ({type: "SN/PROFILE/SET_USER_PROFILE", profile} as const),
     setStatus : (status:string) => ({type: "SN/PROFILE/SET_STATUS", status} as const),
     setPhoto : (photos:PhotosType) => ({type: "SN/PROFILE/SET_PHOTO", photos} as const),
@@ -92,7 +92,12 @@ export const updateProfile = (profile:ProfileType):ThunkType => async (dispatch,
     const userId = getState().authPage.userId
     const data = await profileAPI.updateProfile(profile)
     if (data.resultCode === 0) {
-        dispatch(getProfile(userId))
+        if (userId != null) {
+            dispatch(getProfile(userId))
+        } else {
+            throw new Error("userId can't be null")
+        }
+
     } else { dispatch(stopSubmit('edite-profile',{_error:data.messages[0]}))
         return Promise.reject(data.messages[0])
     }
@@ -100,7 +105,7 @@ export const updateProfile = (profile:ProfileType):ThunkType => async (dispatch,
 
 type InitialState = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsType>
+type ThunkType = BaseThunkType<ActionsType | FormAction>
 
 
 

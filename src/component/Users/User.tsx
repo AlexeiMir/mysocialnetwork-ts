@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/man.png"
 import s from "./users.module.css"
+import {UserType} from "../../types/types";
 
 const useStyles = makeStyles({
     root: {
@@ -20,8 +21,16 @@ const useStyles = makeStyles({
     },
 });
 
+type PropsType = {
+    user: UserType
+    handleUnfollow: (userId: number) => void
+    handleFollow: (userId: number) => void
+    followingInProgress: Array<number>
+    handleStartChatting:(userId: number) => void
+}
 
-const User = ({user,handleUnfollow,handleFollow,followingInProgress,handleStartChatting}) => {
+const User: React.FC<PropsType> = ({user,handleUnfollow,handleFollow,
+                                       followingInProgress,handleStartChatting}) => {
     const classes = useStyles();
 
 

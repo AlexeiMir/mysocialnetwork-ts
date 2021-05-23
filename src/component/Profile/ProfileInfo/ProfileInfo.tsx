@@ -1,11 +1,9 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from "./ProfileInfo.module.css"
 import Grid from "@material-ui/core/Grid";
 import userPhoto from '../../../assets/images/user.png'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ProfileData from "./ProfileData";
-import Preloader from "../../common/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import IconButton from "@material-ui/core/IconButton";
 import EditePopupProfileInfoRedux from "./EditePopupProfileInfo";
@@ -13,6 +11,8 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import {makeStyles} from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+import {ProfilePropsType} from "../Profile";
+import {ProfileType} from "../../../types/types";
 
 const useStyles = makeStyles((theme) => ({
     fab: {
@@ -20,19 +20,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ProfileInfo = ({profile, handleUpdateStatus, status, isOwner, handleUploadPhoto, handleUpdateProfile}) => {
+
+const ProfileInfo: React.FC<ProfilePropsType> = ({profile, handleUpdateStatus,
+                                                     status, isOwner,
+                         handleUploadPhoto, handleUpdateProfile}) => {
     const [confirmOpen, setConfirmOpen] = useState(false);
     const classes = useStyles();
 
 
-    const onMainPhotoSelect = (e) => {
-        if (e.target.files.length) {
+    const onMainPhotoSelect = (e:ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
             handleUploadPhoto(e.target.files[0])
         }
     }
 
-    const submit = (profileData) => {
-        handleUpdateProfile(profileData)
+    const submit = (profileData: ProfileType) => {
+        handleUpdateProfile(profileData).then(() => {
+            setConfirmOpen(false)
+        })
     }
 
     return <>
@@ -53,7 +58,7 @@ const ProfileInfo = ({profile, handleUpdateStatus, status, isOwner, handleUpload
                             <Grid item xs={6}>
                                 <Grid container justify="center" direction="column">
                                     <Grid item xs className={s.mainPhoto}>
-                                        <img src={profile.photos.large || userPhoto}/>
+                                        <img src={profile.photos.large ||  userPhoto}/>
                                     </Grid>
                                     <Grid item xs>
                                         <Tooltip title="Для изменения статуса двойной клик" aria-label="add">

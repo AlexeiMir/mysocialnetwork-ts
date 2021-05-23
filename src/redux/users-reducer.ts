@@ -1,18 +1,18 @@
 import {APIResponseType} from "../api/api";
 import {UserType} from '../types/types'
-import {Action, Dispatch} from "redux";
-import {AppStateType, InferActionsTypes, BaseThunkType} from "./redux-store";
+import {Dispatch} from "redux";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {usersAPI} from "../api/users-api";
 
 
 const initialState = {
-    users: [],
-    friends:[],
+    users: [] as Array<UserType>,
+    friends:[] as Array<UserType>,
     totalUsersCount: 0,
     pageSize: 10,
     currentPage: 5,
     isFetching: false,
-    followingInProgress:[],
+    followingInProgress:[] as Array<number>,
     optionsForUsers: [
         {title:5, value:5},
         {title:10, value:10},
@@ -95,7 +95,7 @@ const usersReducer = (state = initialState, action:ActionsTypes):InitialState =>
     }
 }
 //actions
-const actions = {
+export const actions = {
     toggleIsFetching : (isFetching:boolean) => ({type: "SN/USERS/TOGGLE_IS_FETCHING", isFetching} as const),
     setUsers : (users: Array<UserType>) => ({type: "SN/USERS/SET_USERS", users} as const),
     setCurrentPage : (currentPage: number) => ({type:"SN/USERS/SET_CURRENT_PAGE", currentPage} as const),
@@ -108,18 +108,18 @@ const actions = {
 }
 
 
-export const requestUsers = (currentPage, pageSize,searchedUser=null):ThunkType =>
+export const requestUsers = (currentPage:number, pageSize:number):ThunkType =>
     async (dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetching(true))
     dispatch(actions.setCurrentPage(currentPage))
-    const data = await usersAPI.getUsers(currentPage, pageSize,searchedUser)
+    const data = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(actions.setUsers(data.items))
     //dispatch(setFriends(response.data.items))
     dispatch(actions.toggleIsFetching(false))
     dispatch(actions.setTotalUsersCount(data.totalCount))
 }
 
-export const searchUser = (userName):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
+export const searchUser = (userName:string):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
 
 const data = await usersAPI.searchUser(userName)
     dispatch(actions.setSearchedUser(data.items))
@@ -141,12 +141,12 @@ const _followUnfollowFlow =  async(dispatch:Dispatch<ActionsTypes>,
 
 
 
-export const follow = (userId):ThunkType =>{
+export const follow = (userId:number):ThunkType =>{
     return async(dispatch) =>{
         _followUnfollowFlow(dispatch,userId,usersAPI.follow.bind(usersAPI),actions.followSuccess)
     }
 }
-export const unfollow = (userId):ThunkType =>{
+export const unfollow = (userId:number):ThunkType =>{
     return async(dispatch) =>{
         _followUnfollowFlow(dispatch,userId,usersAPI.unFollow.bind(usersAPI),actions.unFollowSuccess)
     }
