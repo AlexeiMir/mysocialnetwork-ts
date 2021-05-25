@@ -7,12 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {renderCheckbox, renderTextField} from "../../../FormsControls/FormsControls";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import s from "./ProfileInfo.module.css"
 import style from "../../../FormsControls/FormsControls.module.css"
+import {ProfileType} from "../../../types/types";
 
+type PropsType = {
+    profile: ProfileType
+    open: boolean
+    setOpen: (open:boolean) => void
+}
 
-const EditePopupProfileInfo = ({profile,handleSubmit,open,setOpen,error}) => {
+const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> & PropsType> =
+    ({profile,handleSubmit,open,setOpen,error}) => {
 
     const handleClose = () => {
         setOpen(false);

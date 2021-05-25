@@ -1,17 +1,23 @@
 import React from "react";
 import s from "./ProfileInfo.module.css"
+import {ContactsType, ProfileType} from "../../../types/types";
+import { GetStringKeys } from "../../../FormsControls/FormsControls";
 
+type ContactsPropsType = {
+    contactTitle: string
+    contactValue: string
+}
 
-const Contact = ({contactTitle,contactValue}) => {
+const Contact: React.FC<ContactsPropsType> = ({contactTitle,contactValue}) => {
     return <div><b>{contactTitle}</b>:{contactValue}</div>
 
 }
 
+type ProfileDataPropsType = {
+    profile: ProfileType
+}
 
-const ProfileData = ({profile}) => {
-
-
-
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
 
     return <div className={s.profileDescription}>
         <div className={s.firstDescription}>
@@ -39,7 +45,7 @@ const ProfileData = ({profile}) => {
             <div className={s.row}>
                 <div className={s.rowContacts}>{Object.keys(profile.contacts).map(key => {
                     return <Contact
-                        key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                        key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType] }/>
                 })}</div>
             </div>
         </div>

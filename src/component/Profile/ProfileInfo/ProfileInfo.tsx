@@ -58,7 +58,7 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, handleUpdateStatus,
                             <Grid item xs={6}>
                                 <Grid container justify="center" direction="column">
                                     <Grid item xs className={s.mainPhoto}>
-                                        <img src={profile.photos.large ||  userPhoto}/>
+                                        <img src={profile ? profile.photos.large as string | undefined : userPhoto}/>
                                     </Grid>
                                     <Grid item xs>
                                         <Tooltip title="Для изменения статуса двойной клик" aria-label="add">
