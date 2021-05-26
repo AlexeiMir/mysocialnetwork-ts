@@ -1,10 +1,22 @@
 import React from "react";
 import Post from "./Post/Post";
-import AddPostFormRedux from "./AddPostForm/AddPostForm";
+import AddPostFormRedux, { AddPostFormValuesType } from "./AddPostForm/AddPostForm";
+import {PostType, ProfileType} from "../../../types/types";
 
-const MyPosts = ({posts,profile,handleAddPost,handleDeletePost}) => {
+type PropsType = {
+    posts: Array<PostType>
+    profile: ProfileType
+    handleAddPost: (newPostText: string) => void
+    handleDeletePost: (postId:number) => void
+}
+export type AddPostFormValuesType = {
+    newPostText: string
+}
 
-    const onSubmit = (value) => {
+
+const MyPosts: React.FC<PropsType> = ({posts,profile,handleAddPost,handleDeletePost}) => {
+
+    const onSubmit = (value:AddPostFormValuesType) => {
         handleAddPost(value.newPostText)
     }
 

@@ -5,7 +5,7 @@ import MyPosts from "./MyPosts";
 import {actions} from "../../../redux/profile-reducer";
 
 
-const MyPostsContainer = () => {
+const MyPostsContainer:React.FC = () => {
 
     const posts = useSelector(getPostsSelectors)
     const profile = useSelector(getProfileSelector)
