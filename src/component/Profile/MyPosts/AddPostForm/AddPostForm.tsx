@@ -13,7 +13,7 @@ type PropsType = {
 
 type AddPostFormValuesTypeKeys = GetStringKeys<AddPostFormValuesType>
 
-const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesTypeKeys,PropsType> & PropsType> = (props) => {
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType,PropsType> & PropsType> = (props) => {
     const {handleSubmit,pristine,submitting,photo} = props
 
     return <div>

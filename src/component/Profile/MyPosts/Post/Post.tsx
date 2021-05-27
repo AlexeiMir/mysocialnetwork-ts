@@ -9,9 +9,16 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import s from './Post.module.css'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { PostType } from '../../../../types/types';
 
+type PropsType = {
+    post: PostType
+    fullName: string
+    photo: string
+    handleDeletePost: (postId:number) => void
+}
 
-const Post = ({post, likes, fullName, photo,handleDeletePost,postId}) => {
+const Post:React.FC<PropsType> = ({post, fullName, photo,handleDeletePost}) => {
 
     return <>
         <Card className={s.item}>
@@ -22,7 +29,7 @@ const Post = ({post, likes, fullName, photo,handleDeletePost,postId}) => {
                 }
                 action={
                     <IconButton aria-label="settings">
-                        <DeleteOutlineIcon onClick={() => {handleDeletePost(postId)}} />
+                        <DeleteOutlineIcon onClick={() => {handleDeletePost(post.id)}} />
                     </IconButton>
                 }
 
@@ -31,12 +38,12 @@ const Post = ({post, likes, fullName, photo,handleDeletePost,postId}) => {
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                    {post}
+                    {post.post}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
-                    {likes} <FavoriteIcon/>
+                    {post.likes} <FavoriteIcon/>
                 </IconButton>
             </CardActions>
         </Card>
