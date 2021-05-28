@@ -1,4 +1,8 @@
 import React from 'react'
+import {selectIsAuth} from '../../redux/auth-selectors'
+import {getFriends} from "../../redux/users-selectors";
+import {useSelector} from "react-redux";
+
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -23,13 +27,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Navbar = ({friends,isAuth}) => {
+type PropsType = {
+    handleListItemClick: (index:number) => void
+}
 
-    const [selectedIndex, setSelectedIndex] = React.useState();
+const Navbar:React.FC<PropsType> = () => {
+
+    const friends = useSelector(getFriends)
+    const isAuth = useSelector(selectIsAuth)
+
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
     const classes = useStyles();
-    const handleListItemClick = (event, index) => {
+    const handleListItemClick = (index:number) => {
         setSelectedIndex(index);
     };
+
+    const menuItem = ['users', 'dialogs', 'profile' , 'news']
+
+    function ucFirst(str:string) {
+        if (!str) return str;
+      
+        return str[0].toUpperCase() + str.slice(1);
+      }
 
 
     return <>
@@ -37,29 +56,36 @@ const Navbar = ({friends,isAuth}) => {
         <div className={s.nav}>
             <div className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
+                    {menuItem.map((item,index) => <ListItem button component={NavLink} exact to={`/{item}`} selected={selectedIndex === index}
+                               onClick={() => handleListItemClick(index)}>
+                        <ListItemIcon>
+                            <InboxIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={ucFirst(item)}/>
+                    </ListItem>)}
                      <ListItem button component={NavLink} exact to="/users" selected={selectedIndex === 0}
-                               onClick={(event) => handleListItemClick(event, 0)}>
+                               onClick={() => handleListItemClick(0)}>
                         <ListItemIcon>
                             <InboxIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Users"/>
                     </ListItem>
                     <ListItem button component={NavLink} exact to="/dialogs" selected={selectedIndex === 1}
-                              onClick={(event) => handleListItemClick(event, 1)}>
+                              onClick={() => handleListItemClick(1)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Dialogs"/>
                     </ListItem>
                     <ListItem button component={NavLink} exact to="/profile" selected={selectedIndex === 2}
-                              onClick={(event) => handleListItemClick(event, 2)}>
+                              onClick={() => handleListItemClick(2)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Profile"/>
                     </ListItem>
                     <ListItem button component={NavLink} exact to="/news" selected={selectedIndex === 3}
-                              onClick={(event) => handleListItemClick(event, 3)}>
+                              onClick={() => handleListItemClick(3)}>
                         <ListItemIcon>
                             <DraftsIcon/>
                         </ListItemIcon>
@@ -72,7 +98,7 @@ const Navbar = ({friends,isAuth}) => {
                         <ListItemText primary="Trash" />
                     </ListItem>
                     <ListItem className={s.itemText} component={NavLink} exact to="/spam" selected={selectedIndex === 4}
-                              onClick={(event) => handleListItemClick(event, 4)}>
+                              onClick={() => handleListItemClick(4)}>
                         <ListItemText primary="Spam" />
                     </ListItem>
                 </List>

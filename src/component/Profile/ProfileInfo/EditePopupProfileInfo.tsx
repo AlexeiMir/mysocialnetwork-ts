@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {renderCheckbox, renderTextField} from "../../../FormsControls/FormsControls";
+import {createField, Textarea, GetStringKeys} from "../../../FormsControls/FormsControls";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import s from "./ProfileInfo.module.css"
 import style from "../../../FormsControls/FormsControls.module.css"
@@ -17,6 +17,8 @@ type PropsType = {
     open: boolean
     setOpen: (open:boolean) => void
 }
+
+type ProfileFormValuesTypeKeys = GetStringKeys<ProfileType>
 
 const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> & PropsType> =
     ({profile,handleSubmit,open,setOpen,error}) => {
@@ -41,8 +43,10 @@ const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> &
                             </div>}
                             <div className={s.row}>
                                 <div><b>Full name:</b></div>
-                                <Field name="fullName" component={renderTextField} label="Full name"
-                                       multiline={false} rows={1} placeholder={profile.fullName}  />
+                                {createField<ProfileFormValuesTypeKeys>(profile.fullName, 'fullName', Textarea,
+                            {multiline:false,rows:1,label:"Email"})}
+                                {/* <Field name="fullName" component={renderTextField} label="Full name"
+                                       multiline={false} rows={1} placeholder={profile.fullName}  /> */}
                             </div>
                             <div className={s.row}>
                                 <div><b>Looking for a job:</b></div>

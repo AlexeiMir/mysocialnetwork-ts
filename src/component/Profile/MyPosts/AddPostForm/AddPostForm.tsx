@@ -19,7 +19,7 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType,PropsType> &
     return <div>
         <form onSubmit={handleSubmit}>
             <div className={s.postBlock}>
-                <Avatar className={s.imagePost} src={photo}/>
+                <Avatar className={s.imagePost} src={photo as string}/>
                 {createField<AddPostFormValuesTypeKeys>('','newPostText',Textarea,
                     {label:"Post", multiline:true, rows:3})}
                 {/*<Field className={s.post} name={"newPostText"} component={renderTextField}

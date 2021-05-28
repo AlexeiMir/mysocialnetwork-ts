@@ -14,7 +14,7 @@ import { PostType } from '../../../../types/types';
 type PropsType = {
     post: PostType
     fullName: string
-    photo: string
+    photo: string | null
     handleDeletePost: (postId:number) => void
 }
 
@@ -24,7 +24,7 @@ const Post:React.FC<PropsType> = ({post, fullName, photo,handleDeletePost}) => {
         <Card className={s.item}>
             <CardHeader
                 avatar={
-                    <Avatar src={photo}/>
+                    <Avatar src={photo as string}/>
 
                 }
                 action={
