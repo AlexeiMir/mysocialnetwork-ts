@@ -14,3 +14,5 @@ export const selectCurrentUserLogin = (state:AppStateType) => {
 export const selectMyPhoto = (state:AppStateType) => {
     return state.authPage.myPhoto
 }
+
+export const getAutorizaionedUserId = (state:AppStateType) => state.authPage.userId

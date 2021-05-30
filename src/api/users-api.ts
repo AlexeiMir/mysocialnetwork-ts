@@ -1,14 +1,15 @@
 import {instance, GetItemsType, APIResponseType} from "./api";
+import {UserType} from "../types/types";
 
 
 
 export const usersAPI = {
     getUsers(currentPage=1, pageSize=10) {
-        return instance.get<GetItemsType>(`users/?page=${currentPage}&count=${pageSize}`)
+        return instance.get<GetItemsType<UserType>>(`users/?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
     searchUser(userName:string) {
-        return instance.get<GetItemsType>(`users/?term=${userName}`).then(res => res.data)
+        return instance.get<GetItemsType<UserType>>(`users/?term=${userName}`).then(res => res.data)
     },
     follow(userId:number) {
         return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data)

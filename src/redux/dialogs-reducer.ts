@@ -10,7 +10,7 @@ const initialState = {
     messages:[] as Array<MessageType>,
     activeUserId:'',
     newMessagesCount:'',
-    newMessage:null as MessageType,
+    newMessage:null as MessageType | null,
     spam: []
 }
 
@@ -61,14 +61,14 @@ const dialogsReducer = (state=initialState,action:ActionsTypes):InitialStateType
 }
 
 const actions = {
-    toggleIsFetchingDialogs : (isFetching) => ({type:"SN/DIALOGS/TOGGLE_IS_FETCHING",isFetching} as const),
+    toggleIsFetchingDialogs : (isFetching:boolean) => ({type:"SN/DIALOGS/TOGGLE_IS_FETCHING",isFetching} as const),
     setDialogs : (dialogs:Array<DialogType>) => ({type:"SN/DIALOGS/SET_DIALOGS",dialogs} as const),
     setDialogMessages : (messages:Array<MessageType>) => ({type:"SN/DIALOGS/SET_DIALOG_MESSAGES",messages} as const),
-    setActiveUserId : (activeUserId:string) => ({type:"SN/DIALOGS/SET_ACTIVE_USER_ID",activeUserId} as const),
+    setActiveUserId : (activeUserId:number) => ({type:"SN/DIALOGS/SET_ACTIVE_USER_ID",activeUserId} as const),
     setMessage : (newMessage:MessageType) => ({type:"SN/DIALOGS/SET_MESSAGE",newMessage} as const),
-    setNewMessagesCount : (newMessagesCount:string) => ({type:"SN/DIALOGS/SET_NEW_MESSAGES_COUNT",newMessagesCount} as const),
+    setNewMessagesCount : (newMessagesCount:number) => ({type:"SN/DIALOGS/SET_NEW_MESSAGES_COUNT",newMessagesCount} as const),
     setMessageToSpam : (messageId:number) => ({type:"SN/DIALOGS/SET_MESSAGE_TO_SPAM",messageId} as const),
-    restoreMessageSpam : (messageId) => ({type:"SN/DIALOGS/RESTORE_MESSAGE_SPAM",messageId} as const)
+    restoreMessageSpam : (messageId:string) => ({type:"SN/DIALOGS/RESTORE_MESSAGE_SPAM",messageId} as const)
 }
 
 
@@ -86,7 +86,7 @@ export const getAllDialogs = ():ThunkType => async(dispatch:Dispatch<ActionsType
 
 }
 //[{"id":7988,"userName":"Yaroslav1321","hasNewMessages":false,"lastDialogActivityDate":"2020-05-13T10:33:58.72","lastUserActivityDate":"2020-05-12T21:51:05.523",
-export const startChatting = (userId):ThunkType => {
+export const startChatting = (userId:number):ThunkType => {
     return async(dispatch) => {
         dispatch(actions.toggleIsFetchingDialogs(true))
 const data = await dialogsAPI.startChatting(userId)
@@ -99,7 +99,7 @@ const data = await dialogsAPI.startChatting(userId)
     }
 }
 
-export const getListMessages = (userId):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
+export const getListMessages = (userId:number):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetchingDialogs(true))
     const data = await dialogsAPI.getListsMessages(userId)
     dispatch(actions.setDialogMessages(data.items))
@@ -108,7 +108,7 @@ export const getListMessages = (userId):ThunkType => async(dispatch:Dispatch<Act
 
 }
 
-export const sendMessage = (message,userId):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
+export const sendMessage = (message:string,userId:number):ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     
     dispatch(actions.toggleIsFetchingDialogs(true))
     const data = await dialogsAPI.sendMessageToFriend(message,userId)
@@ -120,7 +120,7 @@ export const sendMessage = (message,userId):ThunkType => async(dispatch:Dispatch
 
 }
 
-export const deleteMessage = (messageId,userId):ThunkType => async(dispatch) => {
+export const deleteMessage = (messageId:string,userId:number):ThunkType => async(dispatch) => {
     const response = await dialogsAPI.deleteMessageForYou(messageId)
     if (response.data.resultCode === 0) {
         dispatch(getListMessages(userId))
@@ -133,7 +133,7 @@ export const getNewMessagesCount = ():ThunkType => async(dispatch:Dispatch<Actio
     dispatch(actions.setNewMessagesCount(response.data))
 }
 
-export const messageToSpamTC = (messageId,userId):ThunkType => async(dispatch) => {
+export const messageToSpamTC = (messageId:string,userId:number):ThunkType => async(dispatch) => {
 const response = await dialogsAPI.messageToSpam(messageId)
     if (response.data.resultCode === 0) {
         dispatch(actions.setMessageToSpam(messageId))
@@ -142,7 +142,7 @@ const response = await dialogsAPI.messageToSpam(messageId)
 
 }
 
-export const restoreMessageFromSpam = (messageId,userId):ThunkType =>
+export const restoreMessageFromSpam = (messageId,userId:number):ThunkType =>
     async(dispatch) => {
     const response = await dialogsAPI.restoreMessage(messageId)
     if (response.data.resultCode === 0) {

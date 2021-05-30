@@ -79,9 +79,9 @@ export const renderCheckbox = ({input, label}) => (
 )
 */
 
-export function createField<FormKeysType extends string>(placeholder: string | undefined,
+export function createField<FormKeysType extends string>(placeholder: string | boolean | undefined,
                            name:FormKeysType,
-                           component: React.FC<WrappedFieldProps>,
+                           component: React.FC<WrappedFieldMetaProps & WrappedFieldProps & TextFieldProps>,
                            props={},
                            text="") {
     return <div>

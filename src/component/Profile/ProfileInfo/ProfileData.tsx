@@ -14,7 +14,7 @@ const Contact: React.FC<ContactsPropsType> = ({contactTitle,contactValue}) => {
 }
 
 type ProfileDataPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
 }
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
@@ -23,19 +23,19 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
         <div className={s.firstDescription}>
             <div className={s.row}>
                 <div><b>Full name</b></div>
-                <div>{profile.fullName}</div>
+                <div>{profile?.fullName}</div>
             </div>
             <div className={s.row}>
                 <div><b>Looking for a job</b></div>
-                <div>{profile.lookingForAJob ? "yes" : "no"}</div>
+                <div>{profile?.lookingForAJob ? "yes" : "no"}</div>
             </div>
-            {profile.lookingForAJob && <div className={s.row}>
+            {profile?.lookingForAJob && <div className={s.row}>
                 <div><b><b>My professionals skills</b></b></div>
                 <div>{profile.lookingForAJobDescription}</div>
             </div>}
             <div className={s.row}>
                 <div><b>About me</b></div>
-                <div>{profile.aboutMe}</div>
+                <div>{profile?.aboutMe}</div>
             </div>
         </div>
         <div className={s.secondDescription}>
@@ -43,10 +43,10 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile}) => {
                 <div><b>Contacts</b>:</div>
             </div>
             <div className={s.row}>
-                <div className={s.rowContacts}>{Object.keys(profile.contacts).map(key => {
+                {profile && <div className={s.rowContacts}>{Object.keys(profile.contacts).map(key => {
                     return <Contact
-                        key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType] }/>
-                })}</div>
+                        key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+                })}</div>}
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {UserType} from '../types/types'
+import {DialogType, MessageTypeInMessage, UserType} from '../types/types'
 
 export const instance = axios.create({
     withCredentials:true,
@@ -24,8 +24,17 @@ export type APIResponseType<D={},RC=ResultCodesEnum> = {
     resultCode: RC
 }
 
-export type GetItemsType = {
-    items: Array<UserType>,
+export type GetItemsType<T> = {
+    items: Array<T>,
     totalCount: number,
     error: string | null
+}
+
+export type GetAllDialogsType = Array<DialogType>
+
+export type SendMessageType<RC=ResultCodesEnum> = {
+    data: MessageTypeInMessage
+    messages:[]
+    fieldsErrors:[]
+    resultCode:RC
 }

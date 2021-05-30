@@ -1,19 +1,18 @@
-import React, {useState} from "react";
+import React from "react";
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {createField, Textarea, GetStringKeys} from "../../../FormsControls/FormsControls";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {CheckboxInput, createField, GetStringKeys, Textarea} from "../../../FormsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import s from "./ProfileInfo.module.css"
 import style from "../../../FormsControls/FormsControls.module.css"
 import {ProfileType} from "../../../types/types";
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     open: boolean
     setOpen: (open:boolean) => void
 }
@@ -43,25 +42,31 @@ const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> &
                             </div>}
                             <div className={s.row}>
                                 <div><b>Full name:</b></div>
-                                {createField<ProfileFormValuesTypeKeys>(profile.fullName, 'fullName', Textarea,
+                                {createField<ProfileFormValuesTypeKeys>(profile?.fullName, 'fullName', Textarea,
                             {multiline:false,rows:1,label:"Email"})}
                                 {/* <Field name="fullName" component={renderTextField} label="Full name"
                                        multiline={false} rows={1} placeholder={profile.fullName}  /> */}
                             </div>
                             <div className={s.row}>
                                 <div><b>Looking for a job:</b></div>
-                                <Field name="lookingForAJob" component={renderCheckbox}
-                                       label="Looking for a job" multiline={false} rows={1} placeholder={profile.lookingForAJob}  />
+                                {createField<ProfileFormValuesTypeKeys>(profile?.lookingForAJob, 'fullName', CheckboxInput,
+                                    {multiline:false,rows:1,label:"Looking for a job"})}
+                                {/*<Field name="lookingForAJob" component={renderCheckbox}
+                                       label="Looking for a job" multiline={false} rows={1} placeholder={profile.lookingForAJob}  />*/}
                             </div>
                             <div className={s.row}>
                                 <div><b><b>My professionals skills:</b></b></div>
-                                <Field name="lookingForAJobDescription" component={renderTextField}
-                                       label="My professionals skills" multiline={true} rows={3} placeholder={profile.lookingForAJobDescription} />
+                                {createField<ProfileFormValuesTypeKeys>(profile?.lookingForAJobDescription, 'lookingForAJobDescription', Textarea,
+                                    {multiline:true,rows:3,label:"My professionals skills"})}
+                                {/*<Field name="lookingForAJobDescription" component={renderTextField}
+                                       label="My professionals skills" multiline={true} rows={3} placeholder={profile.lookingForAJobDescription} />*/}
                             </div>
                             <div className={s.row}>
                                 <div><b>About me:</b></div>
-                                <Field name="aboutMe" component={renderTextField} label="About me"
-                                       multiline={true} rows={3} placeholder={profile.aboutMe} />
+                                {createField<ProfileFormValuesTypeKeys>(profile?.aboutMe, 'aboutMe', Textarea,
+                                    {multiline:true,rows:3,label:"About me"})}
+                                {/*<Field name="aboutMe" component={renderTextField} label="About me"
+                                       multiline={true} rows={3} placeholder={profile.aboutMe} />*/}
                             </div>
                         </div>
                         <div className={s.secondDescription}>
@@ -69,12 +74,17 @@ const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> &
                                 <div><b>Contacts</b>:</div>
                             </div>
                             
-                                <div className={s.contacts}>{Object.keys(profile.contacts).map(key => {
+                                <div className={s.contacts}>{profile && Object.keys(profile.contacts).map(key => {
                                     return <>
                                         <div key={key} className={s.contactsField}>
                                         <b>{key}:</b>
-                                            <Field name={"contacts."+key} component={renderTextField} label={key}
-                                                   multiline={false} rows={1} placeholder={key}  /></div></>
+                                            {createField(key,
+                                                "contacts."+ key, Textarea,
+                                                {multiline:false,rows:1,label:key})}
+                                            {/*<Field name={"contacts."+key} component={renderTextField} label={key}
+                                                   multiline={false} rows={1} placeholder={key}  />*/}
+                                        </div>
+                                    </>
                                 })}</div>
                             </div>
                         
@@ -95,6 +105,7 @@ const EditePopupProfileInfo: React.FC<InjectedFormProps<ProfileType,PropsType> &
     );
 }
 
-const EditePopupProfileInfoRedux = reduxForm({form:'edite-profile'})(EditePopupProfileInfo)
+const EditePopupProfileInfoRedux = reduxForm<ProfileType, PropsType>
+({form:'edite-profile'})(EditePopupProfileInfo)
 
 export default EditePopupProfileInfoRedux;

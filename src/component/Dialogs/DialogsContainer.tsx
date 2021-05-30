@@ -5,21 +5,29 @@ import {deleteMessage, getAllDialogs, getListMessages, messageToSpamTC, sendMess
 import Preloader from "../common/Preloader";
 import {getProfile} from "../../redux/profile-reducer"
 import {compose} from "redux";
-import {getMyPhoto} from "../../redux/auth-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import { reset } from "redux-form";
+import {reset} from "redux-form";
+import {getAutorizaionedUserId, selectCurrentUserLogin, selectMyPhoto} from '../../redux/auth-selectors';
+import {getProfileSelector} from '../../redux/profile-selectors';
+import {
+    getDialogsSelector,
+    getIsFetchingSelector,
+    getMessagesSelector,
+    getSpamSelector,
+    selectNewMessagesCount
+} from '../../redux/dialogs-selectors';
 
 
 const DialogsContainer = () => {
-    const dialogs = useSelector(state => state.dialogsPage.dialogs)
-    const messages = useSelector(state => state.dialogsPage.messages)
-    const isFetching = useSelector(state => state.dialogsPage.isFetching)
-    const newMessagesCount = useSelector(state => state.dialogsPage.newMessagesCount)
-    const spam = useSelector(state => state.dialogsPage.spam)
-    const profile = useSelector(state => state.profilePage.profile)
-    const myId = useSelector(state => state.authPage.userId)
-    const myPhoto = useSelector(state => state.authPage.myPhoto)
-    const login = useSelector(state => state.authPage.login)
+    const dialogs = useSelector(getDialogsSelector)
+    const messages = useSelector(getMessagesSelector)
+    const isFetching = useSelector(getIsFetchingSelector)
+    const newMessagesCount = useSelector(selectNewMessagesCount)
+    const spam = useSelector(getSpamSelector)
+    const profile = useSelector(getProfileSelector)
+    const myId = useSelector(getAutorizaionedUserId)
+    const myPhoto = useSelector(selectMyPhoto)
+    const login = useSelector(selectCurrentUserLogin)
 
     const dispatch = useDispatch()
     const [userProfile, setUserProfile] = useState(profile)
@@ -39,16 +47,16 @@ const DialogsContainer = () => {
         setDialog(dialogs)
     },[dialogs])
 
-    const getAllMessagesUser = (userId) => dispatch(getListMessages(userId))
-    const handleSendMessage = (message,userId) => {
+    const getAllMessagesUser = (userId:number) => dispatch(getListMessages(userId))
+    const handleSendMessage = (message:string,userId:number) => {
            dispatch(sendMessage(message,userId))
             dispatch(reset("send-message"))
        }
-    const getNewUserProfile = (userId) => dispatch(getProfile(userId))
-    const handleDeleteMessage = (messageId,userId) => dispatch(deleteMessage(messageId,userId))
-    const handleMessageSpam = (messageId,userId) => dispatch(messageToSpamTC(messageId,userId))
+    const getNewUserProfile = (userId:number) => dispatch(getProfile(userId))
+    const handleDeleteMessage = (messageId:string,userId:number) => dispatch(deleteMessage(messageId,userId))
+    const handleMessageSpam = (messageId:string,userId:number) => dispatch(messageToSpamTC(messageId,userId))
 
-    const handleSearchDialog = (dialogName) => {
+    const handleSearchDialog = (dialogName:string) => {
         if (dialogName.length){
             setDialog(() => { return dialogs
                 .filter(d => d.userName.toLowerCase().match(dialogName.toLowerCase())

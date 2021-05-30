@@ -20,8 +20,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+type PropsType = {
+    handleUpdateProfile: (formData:ProfileType) => Promise<any>
+}
 
-const ProfileInfo: React.FC<ProfilePropsType> = ({profile, handleUpdateStatus,
+
+const ProfileInfo: React.FC<ProfilePropsType & PropsType> = ({profile, handleUpdateStatus,
                                                      status, isOwner,
                          handleUploadPhoto, handleUpdateProfile}) => {
     const [confirmOpen, setConfirmOpen] = useState(false);
@@ -34,8 +38,8 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, handleUpdateStatus,
         }
     }
 
-    const submit = (profileData: ProfileType) => {
-        handleUpdateProfile(profileData).then(() => {
+    const submit = (formData: ProfileType) => {
+        handleUpdateProfile(formData).then(() => {
             setConfirmOpen(false)
         })
     }
