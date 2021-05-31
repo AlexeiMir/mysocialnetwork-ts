@@ -70,7 +70,7 @@ const actions = {
     setMessageToSpam : (messageId:string) => ({type:"SN/DIALOGS/SET_MESSAGE_TO_SPAM",messageId} as const),
     restoreMessageSpam : (messageId:string) => ({type:"SN/DIALOGS/RESTORE_MESSAGE_SPAM",messageId} as const)
 }
-
+ 
 
 export const getAllDialogs = ():ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
     dispatch(actions.toggleIsFetchingDialogs(true))
