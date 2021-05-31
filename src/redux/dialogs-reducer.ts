@@ -8,10 +8,10 @@ const initialState = {
     dialogs: [] as Array<DialogType>,
     isFetching: false,
     messages:[] as Array<MessageType>,
-    activeUserId:'',
-    newMessagesCount:'',
+    activeUserId:1 as number,
+    newMessagesCount:0 as number,
     newMessage:null as MessageType | null,
-    spam: []
+    spam: [] as Array<MessageType>
 }
 
 
@@ -67,7 +67,7 @@ const actions = {
     setActiveUserId : (activeUserId:number) => ({type:"SN/DIALOGS/SET_ACTIVE_USER_ID",activeUserId} as const),
     setMessage : (newMessage:MessageType) => ({type:"SN/DIALOGS/SET_MESSAGE",newMessage} as const),
     setNewMessagesCount : (newMessagesCount:number) => ({type:"SN/DIALOGS/SET_NEW_MESSAGES_COUNT",newMessagesCount} as const),
-    setMessageToSpam : (messageId:number) => ({type:"SN/DIALOGS/SET_MESSAGE_TO_SPAM",messageId} as const),
+    setMessageToSpam : (messageId:string) => ({type:"SN/DIALOGS/SET_MESSAGE_TO_SPAM",messageId} as const),
     restoreMessageSpam : (messageId:string) => ({type:"SN/DIALOGS/RESTORE_MESSAGE_SPAM",messageId} as const)
 }
 
@@ -129,23 +129,23 @@ export const deleteMessage = (messageId:string,userId:number):ThunkType => async
 }
 
 export const getNewMessagesCount = ():ThunkType => async(dispatch:Dispatch<ActionsTypes>) => {
-    const response = await dialogsAPI.getListNewMessagesCount()
-    dispatch(actions.setNewMessagesCount(response.data))
+    const data = await dialogsAPI.getListNewMessagesCount()
+    dispatch(actions.setNewMessagesCount(data))
 }
 
 export const messageToSpamTC = (messageId:string,userId:number):ThunkType => async(dispatch) => {
-const response = await dialogsAPI.messageToSpam(messageId)
-    if (response.data.resultCode === 0) {
+const data = await dialogsAPI.messageToSpam(messageId)
+    if (data.resultCode === 0) {
         dispatch(actions.setMessageToSpam(messageId))
         dispatch(getListMessages(userId))
     }
 
 }
 
-export const restoreMessageFromSpam = (messageId,userId:number):ThunkType =>
+export const restoreMessageFromSpam = (messageId:string,userId:number):ThunkType =>
     async(dispatch) => {
-    const response = await dialogsAPI.restoreMessage(messageId)
-    if (response.data.resultCode === 0) {
+    const data = await dialogsAPI.restoreMessage(messageId)
+    if (data.resultCode === 0) {
         dispatch(actions.restoreMessageSpam(messageId))
         dispatch(getListMessages(userId))
     }
