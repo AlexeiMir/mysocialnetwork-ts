@@ -47,7 +47,7 @@ const dialogsReducer = (state=initialState,action:ActionsTypes):InitialStateType
             }
         case "SN/DIALOGS/SET_MESSAGE_TO_SPAM":
             return {
-                ...state,spam:[...state.spam,...state.messages.filter(message =>message.id === payload)]
+                ...state,spam:[...state.spam,...state.messages.filter(message =>message.id === action.messageId)]
             }
         case "SN/DIALOGS/RESTORE_MESSAGE_SPAM":
             return {

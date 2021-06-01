@@ -5,12 +5,30 @@ import Message from "./Message/Message";
 import s from "../Dialogs/Dialogs.module.css"
 import AddMessageFormRedux from "./Message/AddMessageForm"
 import Search from "../../utils/Search/Search";
+import {MessageType,DialogType, ProfileType, PhotosType} from '../../types/types'
 
+type PropsType = {
+    localDialogs: Array<DialogType> 
+    messages: Array<MessageType>
+    getAllMessagesUser: (userId:number) => void
+    getNewUserProfile : (userId:number) => void
+    handleSendMessage : (message:string,userId:number) => void
+    userProfile : ProfileType
+    myId: number
+    myPhoto : PhotosType
+    handleDeleteMessage: (messageId:string,userId:number) => void
+    newMessagesCount: number
+    handleSearchDialog: (dialogName:string) => void
+    handleMessageSpam: (messageId:string,userId:number) => void
+    spam: Array<MessageType>
+}
+export type AddMessageFormType = {
+    newTextMessage:string
+}
 
-
-const Dialogs = ({
-                     dialogs, messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
-                     myId, myPhoto, login,handleDeleteMessage,newMessagesCount,localDialogs,handleSearchDialog,
+const Dialogs: React.FC<PropsType> = ({
+                    messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
+                     myId, myPhoto, handleDeleteMessage,newMessagesCount,localDialogs,handleSearchDialog,
                      handleMessageSpam,spam
                  }) => {
 
@@ -18,13 +36,13 @@ const Dialogs = ({
 
 
 
-    const onSubmit = (values) => {
+    const onSubmit = (values:AddMessageFormType) => {
         handleSendMessage(values.newTextMessage, userProfile.userId)
     }
 
-    const handleListMessages = (id) => {
-        getNewUserProfile(id)
-        getAllMessagesUser(id)
+    const handleListMessages = (userId:number) => {
+        getNewUserProfile(userId)
+        getAllMessagesUser(userId)
 
     }
 

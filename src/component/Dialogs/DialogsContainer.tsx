@@ -18,7 +18,7 @@ import {
 } from '../../redux/dialogs-selectors';
 
 
-const DialogsContainer = () => {
+const DialogsContainer: React.FC = () => {
     const dialogs = useSelector(getDialogsSelector)
     const messages = useSelector(getMessagesSelector)
     const isFetching = useSelector(getIsFetchingSelector)

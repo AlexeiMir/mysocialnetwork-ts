@@ -11,7 +11,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import CheckIcon from '@material-ui/icons/Check';
 import {PhotosType, ProfileType, MessageType} from '../../../types/types'
 
-export type handleMessageType = (messageId:number,profileId:number) => void
+export type handleMessageType = (messageId:string,profileId:number) => void
 
 type MessageTypeProps = {
     message:MessageType
