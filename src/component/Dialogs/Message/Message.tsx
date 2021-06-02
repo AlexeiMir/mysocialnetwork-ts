@@ -32,7 +32,7 @@ const Message:React.FC<MessageTypeProps> = ({message, myId, myPhoto, userProfile
                 <div className={s.userInfo}>
                     <div className={s.messageAvatar}>
                         <Badge badgeContent={message.senderId === myId ? newMessagesCount :''} color="primary">
-                        <Avatar src={message.senderId === myId ? myPhoto.small : userProfile.photos.small}/>
+                        <Avatar src={message.senderId === myId ? myPhoto!.small : userProfile.photos!.small}/>
                         </Badge>
                     </div>
                     <div className={s.messageSender}>
