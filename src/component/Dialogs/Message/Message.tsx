@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from '@material-ui/core/Avatar';
+import Avatar, { AvatarTypeMap } from '@material-ui/core/Avatar';
 import Typography from "@material-ui/core/Typography";
 import s from "../Dialogs.module.css"
 import IconButton from "@material-ui/core/IconButton";
@@ -32,7 +32,7 @@ const Message:React.FC<MessageTypeProps> = ({message, myId, myPhoto, userProfile
                 <div className={s.userInfo}>
                     <div className={s.messageAvatar}>
                         <Badge badgeContent={message.senderId === myId ? newMessagesCount :''} color="primary">
-                        <Avatar src={message.senderId === myId ? myPhoto!.small : userProfile.photos!.small}/>
+                        <Avatar src={message.senderId === myId ? myPhoto!.small as string | undefined : userProfile.photos.small as string | undefined}/>
                         </Badge>
                     </div>
                     <div className={s.messageSender}>
