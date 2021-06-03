@@ -6,3 +6,4 @@ export const getProfileSelector = (state:AppStateType) => state.profilePage.prof
 export const getStatusSelector = (state:AppStateType) => state.profilePage.status
 
 export const getPostsSelectors = (state:AppStateType) => state.profilePage.posts
+

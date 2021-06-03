@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type PropsType = {
-    handleUpdateProfile: (formData:ProfileType) => Promise<any>
+    handleUpdateProfile: (formData:ProfileType) => void
 }
 
 
@@ -39,9 +39,9 @@ const ProfileInfo: React.FC<ProfilePropsType & PropsType> = ({profile, handleUpd
     }
 
     const submit = (formData: ProfileType) => {
-        handleUpdateProfile(formData).then(() => {
+        handleUpdateProfile(formData)
             setConfirmOpen(false)
-        })
+        
     }
 
     return <>

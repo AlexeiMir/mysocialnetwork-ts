@@ -5,13 +5,14 @@ import {getProfile, getStatus, updatePhoto, updateProfile, updateStatus} from ".
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {getMyPhoto} from "../../redux/auth-reducer";
-import {getAutorizaionedUserId, getProfileSelector, getStatusSelector} from "../../redux/profile-selectors";
+import {getProfileSelector, getStatusSelector} from "../../redux/profile-selectors";
+import {getAutorizaionedUserId} from '../../redux/auth-selectors'
 import {ProfileType} from "../../types/types";
 
 type DispatchPropsType = {
     handleUpdateStatus: (status:string) => void
     handleUploadPhoto: (photo: File) => void
-    handleUpdateProfile: (profile:ProfileType) => Promise<any>
+    handleUpdateProfile: (profile:ProfileType) => void
 }
 type PathParamsType = {
     userId: string

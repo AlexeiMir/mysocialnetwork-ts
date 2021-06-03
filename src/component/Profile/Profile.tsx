@@ -10,7 +10,7 @@ export type ProfilePropsType = {
     status: string
     isOwner: boolean
     handleUploadPhoto: (photo:File) => void
-    handleUpdateProfile: (profile: ProfileType) => Promise<any>
+    handleUpdateProfile: (profile: ProfileType) => void
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
