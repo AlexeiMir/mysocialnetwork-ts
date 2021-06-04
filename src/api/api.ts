@@ -34,7 +34,7 @@ export type GetAllDialogsType = Array<DialogType>
 
 export type SendMessageType<RC=ResultCodesEnum> = {
     data: MessageTypeInMessage
-    messages:[]
-    fieldsErrors:[]
+    messages:Array<MessageTypeInMessage>
+    fieldsErrors:Array<string>
     resultCode:RC
 }

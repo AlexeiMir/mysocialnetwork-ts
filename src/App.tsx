@@ -12,6 +12,7 @@ import ProfileContainer from "./component/Profile/ProfileContainer";
 import {withSuspense} from "./hoc/withSuspense";
 import NavbarContainer from "./component/Navbar/NavbarContainer";
 import SpamContainer from "./component/Spam/SpamContainer";
+import {getInitilized} from './redux/app-selectors'
 
 const UsersContainer = React.lazy(() => import("./component/Users/UsersContainer"));
 const NewsContainer = React.lazy(() => import("./News/NewsContainer"))
@@ -21,7 +22,7 @@ const SuspendedProfile = withSuspense(ProfileContainer)
 
 function App() {
 
-    const initilized = useSelector(state => state.app.initilized)
+    const initilized = useSelector(getInitilized)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initializeApp())
