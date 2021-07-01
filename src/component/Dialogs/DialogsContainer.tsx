@@ -73,10 +73,11 @@ const DialogsContainer: React.FC = () => {
 
         {isFetching
         ? <Preloader/>:null}
-        <Dialogs dialogs={dialogs} getAllMessagesUser={getAllMessagesUser} messages={messages}
+        <Dialogs getAllMessagesUser={getAllMessagesUser} messages={messages}
          handleSendMessage={handleSendMessage} getNewUserProfile={getNewUserProfile} userProfile={userProfile}
-                 myId={myId} myPhoto={myPhoto} login={login} handleDeleteMessage={handleDeleteMessage}
-                 newMessagesCount={newMessagesCount} handleSearchDialog={handleSearchDialog} localDialogs={localDialogs}
+                 myId={myId} myPhoto={myPhoto}  handleDeleteMessage={handleDeleteMessage}
+                 newMessagesCount={newMessagesCount} handleSearchDialog={handleSearchDialog}
+                 localDialogs={localDialogs}
                  handleMessageSpam={handleMessageSpam} spam={spam}
         />
 

@@ -35,3 +35,7 @@ export const getFriends = (state:AppStateType) => {
 export const getOptionsForUsers = (state:AppStateType) => {
     return state.usersPage.optionsForUsers
 }
+
+export const getUsersFilter = (state:AppStateType) => {
+    return state.usersPage.filter
+}

@@ -49,11 +49,12 @@ export const getAuthUserData = ():ThunkType => async(dispatch) => {
 }
 
 export const getMyPhoto = (userId:number):ThunkType => async(dispatch) => {
-    const response = await profileAPI.getProfile(userId)
-    dispatch(actions.setMyPhoto(response.data.photos))
+    const data = await profileAPI.getProfile(userId)
+    dispatch(actions.setMyPhoto(data.photos))
 }
 
-export const login = (email: string,password: string,rememberMe: boolean, captcha: string):ThunkType => async(dispatch) =>{
+export const login = (email: string,password: string,rememberMe: boolean, captcha: string):ThunkType =>
+    async(dispatch) =>{
 const data = await authAPI.login(email,password,rememberMe,captcha)
     if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getAuthUserData())

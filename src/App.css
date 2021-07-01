@@ -6,7 +6,7 @@
     grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   max-width: 100%;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
 .app-wrapper-content {

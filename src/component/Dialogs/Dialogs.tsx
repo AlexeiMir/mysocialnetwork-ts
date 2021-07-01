@@ -13,9 +13,9 @@ type PropsType = {
     getAllMessagesUser: (userId:number) => void
     getNewUserProfile : (userId:number) => void
     handleSendMessage : (message:string,userId:number) => void
-    userProfile : ProfileType
-    myId: number
-    myPhoto : PhotosType
+    userProfile : ProfileType | null
+    myId: number | null
+    myPhoto : PhotosType |null
     handleDeleteMessage: (messageId:string,userId:number) => void
     newMessagesCount: number
     handleSearchDialog: (dialogName:string) => void
@@ -27,8 +27,10 @@ export type AddMessageFormType = {
 }
 
 const Dialogs: React.FC<PropsType> = ({
-                    messages, getAllMessagesUser, getNewUserProfile, handleSendMessage, userProfile,
-                     myId, myPhoto, handleDeleteMessage,newMessagesCount,localDialogs,handleSearchDialog,
+                    messages, getAllMessagesUser, getNewUserProfile, handleSendMessage,
+                                          userProfile,
+                     myId, myPhoto, handleDeleteMessage,newMessagesCount,
+                                          localDialogs,handleSearchDialog,
                      handleMessageSpam,spam
                  }) => {
 
@@ -37,7 +39,7 @@ const Dialogs: React.FC<PropsType> = ({
 
 
     const onSubmit = (values:AddMessageFormType) => {
-        handleSendMessage(values.newTextMessage, userProfile.userId)
+        handleSendMessage(values.newTextMessage, userProfile?.userId as number)
     }
 
     const handleListMessages = (userId:number) => {

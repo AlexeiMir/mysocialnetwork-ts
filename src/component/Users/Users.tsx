@@ -11,14 +11,19 @@ import {
     getFollowingInProgress,
     getOptionsForUsers,
     getPageSize,
-    getTotalItemsCount,
+    getTotalItemsCount, getUsersFilter,
     getUsersSuperSelector
 } from "../../redux/users-selectors";
-import {follow, requestUsers, searchUser, actions, unfollow} from "../../redux/users-reducer";
+import {follow, requestUsers, searchUser, actions, unfollow, FilterType} from "../../redux/users-reducer";
 import {startChatting} from "../../redux/dialogs-reducer";
+import UsersSearchForm from "./UsersSearchForm";
+import { useHistory } from "react-router-dom";
+import * as queryString from "querystring";
+
 
 type PropsType = {}
 
+type QueryStringType = { page?: string, term?: string, friend?: string };
 const Users: React.FC<PropsType> = (props) => {
 
     const users = useSelector(getUsersSuperSelector)
@@ -27,14 +32,53 @@ const Users: React.FC<PropsType> = (props) => {
     const pageSize = useSelector(getPageSize)
     const followingInProgress = useSelector(getFollowingInProgress)
     const optionsForUsers = useSelector(getOptionsForUsers)
+    const filter = useSelector(getUsersFilter)
+    const history = useHistory()
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(requestUsers(currentPage,pageSize))
-    },[pageSize])
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryStringType
+        let actualPage = currentPage
+        let actualFilter = filter
+        if (!!parsed.page) actualPage = Number(parsed.page)
+
+        if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+
+        switch (parsed.friend) {
+            case "null":
+                actualFilter = {...actualFilter,friend:null}
+                break;
+            case "true":
+                actualFilter = {...actualFilter,friend:true}
+                break;
+            case "false":
+                actualFilter = {...actualFilter,friend:false}
+                break;
+            default:
+                actualFilter = filter
+                break;
+
+        }
+        dispatch(requestUsers(actualPage,pageSize,actualFilter))
+    },[])
+
+    useEffect(() => {
+        const query:QueryStringType = {}
+        if (!!filter.term) query.term = String(filter.term)
+        if (filter.friend !== null) query.friend = String(filter.friend)
+        if (currentPage !==1) query.page = String(currentPage)
+        history.push({
+            pathname: '/users',
+            search: queryString.stringify(query)
+        })
+    },[currentPage,filter])
 
     const onPageChanged = (pageNumber: number) => {
-        dispatch(requestUsers(pageNumber,pageSize))
+        dispatch(requestUsers(pageNumber,pageSize,filter))
+    }
+
+    const onFilterChanged = (filter:FilterType) => {
+        dispatch(requestUsers(1,pageSize,filter))
     }
 
     const handleFollow = (userId: number) => {dispatch(follow(userId))}
@@ -49,7 +93,8 @@ const Users: React.FC<PropsType> = (props) => {
 
         <Grid container spacing={3} className={s.searchBlock} justify="center" alignItems="flex-end">
             <Grid item xs={3}>
-                <Search handleSearch={handleSearchUser}/>
+               {/* <Search handleSearch={handleSearchUser}/>*/}
+                <UsersSearchForm  onFilterChanged={onFilterChanged}/>
             </Grid>
             <Grid item xs={3}>
                 <Selector options={optionsForUsers} value={pageSize} handlePageSize={handlePageUserSize}/>

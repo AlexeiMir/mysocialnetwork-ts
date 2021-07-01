@@ -4,9 +4,8 @@ import {DialogType, MessageTypeInMessage, UserType} from '../types/types'
 export const instance = axios.create({
     withCredentials:true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-    headers: {'API-KEY': '210a4391-39dd-4e0e-8d9d-4503ceec2ef8'}
-    //210a4391-39dd-4e0e-8d9d-4503ceec2ef8    second account
-        //8a32d348-6f9e-451a-b238-e010eb3eea31   first account
+    headers: {'API-KEY': '8a32d348-6f9e-451a-b238-e010eb3eea31'}
+
 })
 
 export enum ResultCodesEnum {

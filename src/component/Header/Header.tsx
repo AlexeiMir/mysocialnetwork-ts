@@ -68,7 +68,7 @@ const Header:React.FC<MapPropsType> = () => {
                             ? <div className={s.logout}>
                                 <div>
                                     <Badge badgeContent={newMessagesCount} color="secondary" showZero>
-                                        <Avatar src={myPhoto ? myPhoto.small : userImage}/>
+                                        <Avatar src={myPhoto ? myPhoto.small as string | undefined : userImage}/>
                                     </Badge>
                                 </div>
                                 <div>

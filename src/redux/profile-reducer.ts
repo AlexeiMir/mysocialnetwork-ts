@@ -28,7 +28,7 @@ const profileReducer = (state = initialState, action:ActionsType):InitialState =
         case "SN/PROFILE/SET_PHOTO":
 
             return {
-                ...state, profile: {...state.profile, photos: action.photos}
+                ...state, profile: {...state.profile, photos: action.photos} as ProfileType
             }
 
         case "SN/PROFILE/ADD_POST":

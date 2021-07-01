@@ -15,9 +15,9 @@ export type handleMessageType = (messageId:string,profileId:number) => void
 
 type MessageTypeProps = {
     message:MessageType
-    myId: number
-    myPhoto: PhotosType
-    userProfile: ProfileType
+    myId: number | null
+    myPhoto: PhotosType | null
+    userProfile: ProfileType | null
     handleDeleteMessage: handleMessageType
     newMessagesCount: number
     handleMessageSpam: handleMessageType
@@ -32,7 +32,8 @@ const Message:React.FC<MessageTypeProps> = ({message, myId, myPhoto, userProfile
                 <div className={s.userInfo}>
                     <div className={s.messageAvatar}>
                         <Badge badgeContent={message.senderId === myId ? newMessagesCount :''} color="primary">
-                        <Avatar src={message.senderId === myId ? myPhoto!.small as string | undefined : userProfile.photos.small as string | undefined}/>
+                        <Avatar src={message.senderId === myId ? myPhoto!.small as string | undefined :
+                            userProfile?.photos.small as string | undefined}/>
                         </Badge>
                     </div>
                     <div className={s.messageSender}>
@@ -59,11 +60,14 @@ const Message:React.FC<MessageTypeProps> = ({message, myId, myPhoto, userProfile
                             {`${message.addedAt.slice(11, 13)}.${message.addedAt.slice(14, 16)}`}
                         </div>
                         <div className={s.deleteMessage}>
-                            <IconButton aria-label="delete" onClick={() => {handleDeleteMessage(message.id,userProfile.userId)}} >
+                            <IconButton aria-label="delete"
+                                        onClick={() => {handleDeleteMessage(message.id,
+                                            userProfile?.userId as number)}} >
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
                             <Tooltip title="В спам">
-                                <IconButton color="primary" onClick={() => handleMessageSpam(message.id,userProfile.userId)}>
+                                <IconButton color="primary" onClick={() =>
+                                    handleMessageSpam(message.id,userProfile?.userId as number)}>
                                     <RemoveCircleOutlineIcon fontSize={"small"}/>
                             </IconButton>
                             </Tooltip>

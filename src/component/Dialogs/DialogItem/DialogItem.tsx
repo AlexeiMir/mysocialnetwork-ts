@@ -8,9 +8,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../../assets/images/man.png"
 import s from "./DialogItem.module.css"
+import {DialogType, ProfileType} from "../../../types/types";
+
+type PropsType = {
+    dialog: DialogType
+    handleListMessages : (userId:number) => void
+    profile: ProfileType | null
+}
 
 
-const DialogItem = ({dialog, handleListMessages, profile}) => {
+const DialogItem: React.FC<PropsType> = ({dialog, handleListMessages, profile}) => {
 
 
     return <>

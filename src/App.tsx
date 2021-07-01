@@ -3,22 +3,23 @@ import './App.css';
 import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "./redux/redux-store";
-import DialogsContainer from "./component/Dialogs/DialogsContainer";
 import {Login} from "./component/Login/Login";
 import Header from "./component/Header/Header";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./component/common/Preloader";
-import ProfileContainer from "./component/Profile/ProfileContainer";
 import {withSuspense} from "./hoc/withSuspense";
 import NavbarContainer from "./component/Navbar/NavbarContainer";
 import SpamContainer from "./component/Spam/SpamContainer";
 import {getInitilized} from './redux/app-selectors'
+import NewsContainer from './News/NewsContainer';
 
-const UsersContainer = React.lazy(() => import("./component/Users/UsersContainer"));
-const NewsContainer = React.lazy(() => import("./News/NewsContainer"))
+const ProfileContainer = React.lazy(() => import("./component/Profile/ProfileContainer"));
+const DialogsContainer = React.lazy(() => import("./component/Dialogs/DialogsContainer"))
+const UsersContainer = React.lazy(() => import("./component/Users/UsersContainer"))
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
+const SuspendedUsers = withSuspense(UsersContainer)
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
         <Header/>
         <NavbarContainer/>
         <div className="app-wrapper-content">
-            <Route path={"/users"} render={() => <UsersContainer/>}/>
+            <Route path={"/users"} render={() => <SuspendedUsers/>}/>
             <Route path={"/dialogs"} render={() => <SuspendedDialogs/>}/>
             <Route path={"/spam"} render={() => <SpamContainer/>}/>
             <Route path={"/profile/:userId?"} render={() => <SuspendedProfile/>}/>

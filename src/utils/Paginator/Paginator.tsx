@@ -20,14 +20,15 @@ type PropsType = {
 const Paginator:React.FC<PropsType> = ({totalItemsCount,pageSize,currentPage,onPageChanged}) => {
 
     let pagesCount = Math.ceil(totalItemsCount/pageSize)
-    const handleChange = (pageNumber) => {
+    const handleChange = (event: React.ChangeEvent<unknown>, pageNumber:number) => {
         onPageChanged(pageNumber);
     };
 
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Pagination count={pagesCount} color="primary" page={currentPage} onChange={handleChange} />
+            <Pagination count={pagesCount} color="primary" page={currentPage}
+                        onChange={handleChange} />
 
         </div>
     );

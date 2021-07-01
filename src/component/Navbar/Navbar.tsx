@@ -56,41 +56,15 @@ const Navbar:React.FC<PropsType> = () => {
         <div className={s.nav}>
             <div className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
-                    {menuItem.map((item,index) => <ListItem button component={NavLink} exact to={`/{item}`} selected={selectedIndex === index}
+                    {menuItem.map((item,index) =>
+                        <ListItem key={item} button component={NavLink}
+                                  exact to={`/${item}`} selected={selectedIndex === index}
                                onClick={() => handleListItemClick(index)}>
                         <ListItemIcon>
                             <InboxIcon/>
                         </ListItemIcon>
                         <ListItemText primary={ucFirst(item)}/>
                     </ListItem>)}
-                     <ListItem button component={NavLink} exact to="/users" selected={selectedIndex === 0}
-                               onClick={() => handleListItemClick(0)}>
-                        <ListItemIcon>
-                            <InboxIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Users"/>
-                    </ListItem>
-                    <ListItem button component={NavLink} exact to="/dialogs" selected={selectedIndex === 1}
-                              onClick={() => handleListItemClick(1)}>
-                        <ListItemIcon>
-                            <DraftsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Dialogs"/>
-                    </ListItem>
-                    <ListItem button component={NavLink} exact to="/profile" selected={selectedIndex === 2}
-                              onClick={() => handleListItemClick(2)}>
-                        <ListItemIcon>
-                            <DraftsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Profile"/>
-                    </ListItem>
-                    <ListItem button component={NavLink} exact to="/news" selected={selectedIndex === 3}
-                              onClick={() => handleListItemClick(3)}>
-                        <ListItemIcon>
-                            <DraftsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="News"/>
-                    </ListItem>
                 </List>
                 <Divider />
                 <List component="nav" aria-label="secondary mailbox folders">
@@ -129,5 +103,32 @@ const Navbar:React.FC<PropsType> = () => {
 
 export default Navbar;
 
-
+/*<ListItem button component={NavLink} exact to="/users" selected={selectedIndex === 0}
+          onClick={() => handleListItemClick(0)}>
+    <ListItemIcon>
+        <InboxIcon/>
+    </ListItemIcon>
+    <ListItemText primary="Users"/>
+</ListItem>
+<ListItem button component={NavLink} exact to="/dialogs" selected={selectedIndex === 1}
+          onClick={() => handleListItemClick(1)}>
+    <ListItemIcon>
+        <DraftsIcon/>
+    </ListItemIcon>
+    <ListItemText primary="Dialogs"/>
+</ListItem>
+<ListItem button component={NavLink} exact to="/profile" selected={selectedIndex === 2}
+          onClick={() => handleListItemClick(2)}>
+    <ListItemIcon>
+        <DraftsIcon/>
+    </ListItemIcon>
+    <ListItemText primary="Profile"/>
+</ListItem>
+<ListItem button component={NavLink} exact to="/news" selected={selectedIndex === 3}
+          onClick={() => handleListItemClick(3)}>
+    <ListItemIcon>
+        <DraftsIcon/>
+    </ListItemIcon>
+    <ListItemText primary="News"/>
+</ListItem>*/
 
