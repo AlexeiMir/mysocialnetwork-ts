@@ -7,6 +7,7 @@ import {reducer as formReducer} from 'redux-form';
 import appReducer from "./app-reducer";
 import profileReducer from "./profile-reducer";
 import newsReducer from "./news-reducer";
+import chatReducer from "./chat-reducer";
 
 let rootReducer = combineReducers({
     usersPage:usersReducer,
@@ -15,7 +16,8 @@ let rootReducer = combineReducers({
     form: formReducer,
     app:appReducer,
     profilePage:profileReducer,
-    newsPage:newsReducer
+    newsPage:newsReducer,
+    chat:chatReducer
 })
 type RootReducerType = typeof rootReducer
 export type AppStateType = ReturnType<RootReducerType>

@@ -16,10 +16,12 @@ import NewsContainer from './News/NewsContainer';
 const ProfileContainer = React.lazy(() => import("./component/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./component/Dialogs/DialogsContainer"))
 const UsersContainer = React.lazy(() => import("./component/Users/UsersContainer"))
+const ChatPage = React.lazy(() => import("./component/pages/ChatPage"))
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
 const SuspendedUsers = withSuspense(UsersContainer)
+const SuspendedChatPage = withSuspense(ChatPage)
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
             <Route path={"/spam"} render={() => <SpamContainer/>}/>
             <Route path={"/profile/:userId?"} render={() => <SuspendedProfile/>}/>
             <Route path={"/news"} render={() => <NewsContainer/>}/>
+            <Route path={"/chat"} render={() => <SuspendedChatPage/>}/>
             <Route path={"/login"} render={() => <Login/>}/>
             <Route exact path={"/"} render={() => <Redirect to="/users"/>}/>
         </div>

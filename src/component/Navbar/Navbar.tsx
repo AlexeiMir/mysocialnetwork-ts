@@ -42,7 +42,7 @@ const Navbar:React.FC<PropsType> = () => {
         setSelectedIndex(index);
     };
 
-    const menuItem = ['users', 'dialogs', 'profile' , 'news']
+    const menuItem = ['users', 'dialogs', 'profile' , 'chat',  'news']
 
     function ucFirst(str:string) {
         if (!str) return str;
